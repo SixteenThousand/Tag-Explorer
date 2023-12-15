@@ -8,13 +8,13 @@ import new_book
 import config
 
 def run():
-	# the entrypoint of the whole application
+	# technically the entrypoint of the whole application
 	root = tk.Tk()
 	root.title("Tag Explorer")
 	root.rowconfigure(0,weight=1)
 	root.columnconfigure(0,weight=1)
 	style = ttk.Style()
-	style.theme_use("winnative")
+	style.theme_use("clam")
 	frame = ttk.Frame(root)
 	frame.grid(column=0,row=0,sticky="nw")
 	populate(frame)
@@ -36,8 +36,12 @@ class SearchWidget():
 
 
 def populate(frame):
-	# input_box: frame containing all the input widgets; includes
+	# library box: frame containing widgets needed to select a library to search
+	# within
 	# - directory ("Library") search box
+	lib_box = ttk.Frame(frame)
+	
+	# input_box: frame containing all the input widgets; includes
 	# - title search box
 	# - list of possible tags
 	# - other info search box
@@ -60,6 +64,7 @@ def populate(frame):
 	title_la.grid(row=0,column=0,sticky="s")
 	results_list = tk.StringVar()
 	results_lb = tk.Listbox(output_box,height=10,width=100,listvariable=results_list)
+	# results_list.set(["thing1","thing2"])  # debug
 	results_lb.grid(row=1,column=0)
 	open_b = ttk.Button(output_box,text="Open",command=mock.button_handler)
 	open_b.grid(row=2,column=0)
@@ -77,9 +82,13 @@ def populate(frame):
 		ttk.Button(opt_box,text="Edit Library",command=mock.button_handler),
 		ttk.Button(opt_box,text="New Book",command=mock.button_handler),
 		ttk.Button(opt_box,text="Configuration",command=mock.button_handler)
-	];
+	]
 	for i in range(len(opt_widgets)):
 		opt_widgets[i].grid(row=i,column=0)
+	
+	for subframe in frame.winfo_children():
+		for child in subframe.winfo_children():
+			child.grid_configure(padx=5, pady=5)
 
 
 if __name__ =="__main__":
