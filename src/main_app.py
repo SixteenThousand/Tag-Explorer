@@ -21,13 +21,14 @@ frame = ttk.Frame(root)
 lib_box = ttk.Frame(frame)
 lib_box_title = ttk.Label(
 		lib_box,
-		text="Select Library:"
+		text="Library"
 )
-current_library = tk.StringVar()
-lib_et = ttk.Entry(
+library_list = tk.StringVar()
+lib_sl = wg.SearchList(
 		lib_box,
-		width=80,
-		textvariable=current_library
+		"Select Library",
+		3,
+		"browse"  # only allows one item to be selected at a time
 )
 select_bu = ttk.Button(
 		lib_box,
@@ -53,10 +54,11 @@ other_info_sw = wg.SearchEntry(
 		input_box,
 		"Other Information"
 )
-tags_sw = wg.SearchList(
+tags_sl = wg.SearchList(
 		input_box,
 		"Tags",
-		6
+		6,
+		"extended"  # allows multiple items to be selected at once
 )
 search_bu = ttk.Button(
 		input_box,
@@ -80,7 +82,8 @@ results_lb = tk.Listbox(
 		output_box,
 		height=10,
 		width=100,
-		listvariable=results_list
+		listvariable=results_list,
+		selectmode="browse"  # only allows one item to be selected at a time
 )
 # results_list.set(["thing1","thing2"])  # debug
 open_bu = ttk.Button(
@@ -132,14 +135,14 @@ def populate():
 	# +++ THE LIBRARY BOX +++
 	lib_box.grid(row=0,column=0,columnspan=2)
 	lib_box_title.grid(row=0,column=0,columnspan=2)
-	lib_et.grid(row=1,column=0)
-	select_bu.grid(row=1,column=1)
+	lib_sl.position(1,0)
+	select_bu.grid(row=1,column=2)
 	# +++ THE INPUT BOX +++
 	input_box.grid(row=1,column=0,sticky="n")
 	input_box_title.grid(row=0,column=0,columnspan=2)
 	title_sw.position(1,0)
 	other_info_sw.position(2,0)
-	tags_sw.position(3,0)
+	tags_sl.position(3,0)
 	search_bu.grid(row=4,column=0,columnspan=2,sticky="e")
 	# +++ THE RESULTS BOX +++
 	output_box.grid(row=1,column=1,sticky="n")

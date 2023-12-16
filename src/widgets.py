@@ -17,14 +17,15 @@ class SearchEntry():
 		self.input_wg.grid(row=r,column=c+1,sticky="w")
 
 class SearchList():
-	def __init__(self,frame,name,height):
+	def __init__(self,frame,name,height,mode):
 		self.name = ttk.Label(frame,text=f"{name}: ")
-		self.selected_item = tk.StringVar()
+		self.options = tk.StringVar()
 		self.input_wg = tk.Listbox(
 			frame,
 			width=50,
 			height=height,
-			listvariable=self.selected_item
+			listvariable=self.options,
+			selectmode=mode
 		)
 	
 	def position(self,r,c):

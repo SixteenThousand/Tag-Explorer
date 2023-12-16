@@ -1,5 +1,4 @@
 info_rgx ;; (.*)_(.*)\..*
-tags ;; algebra,analysis,british,category theory,differential equations,fantasy,geometry,haskell,maths,ODEs,programming,sci-fi
 ./TheColourOfMagic_TerryPratchett.pdf ;; TheColourOfMagic ;; TerryPratchett ;; fantasy,sci-fi,british
 ./Neverwhere_NeilGaiman.txt ;; Neverwhere ;; NeilGaiman ;; fantasy,british
 ./Maths-Books/Elements_Euclid.dvi ;; Elements ;; Euclid ;; maths,geometry
