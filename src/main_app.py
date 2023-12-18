@@ -167,6 +167,7 @@ def populate():
 
 def run():
 	# technically the entrypoint of the whole application
+	search.setup()
 	populate()
 	root.mainloop()
 
