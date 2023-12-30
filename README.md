@@ -12,12 +12,13 @@ Firstly, this project is mostly for my own personal use, so you would probably
 be better off just finding another project that does something similar; if I
 find any myself, I'll post links here. If you still want to use this, you will
 need:
-	- python version 3.11 or greater.
+	- python version 3.11 or later[^1].
 You can install Tag Explorer either by downloading one of the .pyz releases, or
 you can build it yourself by cloning the repo and running
 ```
-	python -m zipapp -o "./tagx.pyz" -m "app:run"
+	python -m zipapp -o "./tagx.pyz" -m "main_app:run"
 ```
+[^1]: although it will likely work on earlier python3 versions as well
 ---
 
 
@@ -56,3 +57,7 @@ file you should see something like the following:
 
 
 ## Configuration
+
+
+## TODO's
+- Update this README

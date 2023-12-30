@@ -1,7 +1,0 @@
-info_rgx ;; (.*)_(.*)\..*
-./TheColourOfMagic_TerryPratchett.pdf ;; TheColourOfMagic ;; TerryPratchett ;; fantasy,sci-fi,british
-./Neverwhere_NeilGaiman.txt ;; Neverwhere ;; NeilGaiman ;; fantasy,british
-./Maths-Books/Elements_Euclid.dvi ;; Elements ;; Euclid ;; maths,geometry
-./Maths-Books/The-Bumper-Book-Of-Differential-Equations/ ;; The-Bumper-Book-Of-Differential-Equations ;;  ;; maths,analysis,ODEs,differential equations
-./Maths-Books/Category-Theory/TheJoyOfCats.pdf ;; TheJoyOfCats ;;  ;; category theory,algebra,maths
-./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategroyTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory,programming,haskell

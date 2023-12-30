@@ -15,24 +15,28 @@ style = ttk.Style()
 style.theme_use("clam")
 frame = ttk.Frame(root)
 
-# library box: frame containing widgets needed to select a library to search
-# within. Contains:
-# - directory ("Library") search box
-lib_box = ttk.Frame(frame)
-lib_box_title = ttk.Label(
-		lib_box,
-		text="Library"
+# output_box: frame containing all the widgets that display the search 
+# results. Contains:
+# - list of titles of results
+# - label indicating currently selected result
+# - "Open" button which allows the user to open the selected result in the current
+# system default
+output_box = ttk.Frame(frame)
+output_box_title = ttk.Label(
+		output_box,
+		text="Results"
 )
-library_list = tk.StringVar()
-lib_sl = wg.SearchList(
-		lib_box,
-		"Select Library",
-		3,
-		"browse"  # only allows one item to be selected at a time
+results_list = tk.StringVar()
+results_lb = tk.Listbox(
+		output_box,
+		height=10,
+		width=100,
+		listvariable=results_list,
+		selectmode="browse"  # only allows one item to be selected at a time
 )
-select_bu = ttk.Button(
-		lib_box,
-		text="Confirm",
+open_bu = ttk.Button(
+		output_box,
+		text="Open",
 		command=mock.button_handler
 )
 
@@ -66,30 +70,27 @@ search_bu = ttk.Button(
 		command=mock.button_handler
 )
 
-# output_box: frame containing all the widgets that display the search 
-# results. Contains:
-# - list of titles of results
-# - label indicating currently selected result
-# - "Open" button which allows the user to open the selected result in the current
-# system default
-output_box = ttk.Frame(frame)
-output_box_title = ttk.Label(
-		output_box,
-		text="Results"
+# library box: frame containing widgets needed to select a library to search
+# within. Contains:
+# - directory ("Library") search box
+lib_box = ttk.Frame(frame)
+lib_box_title = ttk.Label(
+		lib_box,
+		text="Library"
 )
-results_list = tk.StringVar()
-results_lb = tk.Listbox(
-		output_box,
-		height=10,
-		width=100,
-		listvariable=results_list,
-		selectmode="browse"  # only allows one item to be selected at a time
+lib_sl = wg.SearchList(
+		lib_box,
+		"Select Library",
+		3,
+		"browse"  # only allows one item to be selected at a time
 )
-# results_list.set(["thing1","thing2"])  # debug
-open_bu = ttk.Button(
-		output_box,
-		text="Open",
-		command=mock.button_handler
+def select_library():
+	search.get_library_data(lib_sl.curselect)  # TBC
+	tags_sl.options.set(list(search.lib_tags))
+select_bu = ttk.Button(
+		lib_box,
+		text="Confirm",
+		command=select_library
 )
 
 # opt_box: the frame containing all the options/config widgets. Contains:
@@ -127,6 +128,7 @@ opt_widgets = [
 
 
 
+
 def populate():
 	# decides where all the widgets should go
 	root.rowconfigure(0,weight=1)
@@ -159,15 +161,12 @@ def populate():
 	for subframe in frame.winfo_children():
 		for child in subframe.winfo_children():
 			child.grid_configure(padx=5, pady=5)
-	
-	
-
-	
 
 
 def run():
 	# technically the entrypoint of the whole application
 	search.setup()
+	lib_sl.options.set(list(search.libs.keys()))
 	populate()
 	root.mainloop()
 

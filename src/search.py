@@ -4,39 +4,46 @@ import os
 
 
 
-# list of libraries got from LIBRARIES.
-# each item is a tuple of (path of library, ID of library)
-
 def setup():
 	"""
-		creates the relevant files for storing tags & locations between sessions
-		the directory containing all tag-explorer data. includes:
-			- a text file that lists the absolute paths to all directories currently
-			handled by tag explorer (the "libraries"), along with a unique ID for each
-			- a set of files, one for each library, named something like
-				{library ID}.tgx
-			which contain the known tags and locations of books
-		***NOTE*** despite the capitalisation, this variable will be changed ONCE to
-		account for operating system differences
+		Makes all of the things Tag Explorer needs to run on the back end.
+		Specifically:
+			- creating global variables to store search results/other runtime
+			data
+			- creating global "constants" that are relevant to the storage of
+			tag explorer data on the user's machine, and create a directory
+			for storing that data
 	"""
-	# data about the current library
-	global libs = []
-	global lib_tags = set()
-	global lib_books = dict()
-	# the location of all data used by tag explorer
-	global LIBRARIES = "libraries"
-	global EXT = ".tgx"
+	# data about the selected library
+	global libs
+	libs = dict()
+	global lib_tags
+	lib_tags = set()
+	global lib_books
+	lib_books = dict()
 	
+	# the location of all data used by tag explorer
+	global EXT
+	EXT = ".tgx"
+	global DATA_DIR
+	DATA_DIR = "tag-explorer"
+	
+	# create config/data directory if it does not exist already
 	if os.name == "nt":
 		DATA_DIR = os.path.join(os.environ["home"],"AppData\\Local",DATA_DIR)
 	else:
 		DATA_DIR = os.path.join("~/.config",DATA_DIR)
 	if os.path.exists(DATA_DIR):
-		return
-	os.makedirs(DATA_DIR,exist_ok=True)
-	with open(os.path.join(DATA_DIR,LIBRARIES),"w",encoding="utf-8") as fp:
-		fp.write("# List of Libraries")
-
+		os.makedirs(DATA_DIR,exist_ok=True)
+	
+	# getting the names & locations of the libraries
+	for thing in os.scandir(DATA_DIR):
+		if not thing.name.endswith(EXT):
+			continue
+		fp = open(thing.path,"r",encoding="utf-8")
+		libs[thing.name.split(".")[0]] = fp.readline()
+		fp.close()
+		
 
 
 class Book():
@@ -55,19 +62,5 @@ def get_book(line):
 		set(data[3].split(","))
 	)
 
-
-def parse_tgx(path):
-	with open(path,"r",encoding="utf-8") as fp:
-		fp.readline()
-		for line in fp:
-			b = get_book(line)
-			lib_books[b.path] = b
-			lib_tags = lib_tags | b.tags
-
-def get_libs():
-	# returns a list of all the directories that have a .tgx file (aka
-	# "libraries")
-	if os.path.exists(LIBRARIES):
-		fp = open(lib-LIBRARIES,"r",encoding="utf-8")
-		for line in fp:
-			libs.append(line)
+def get_library_data(lib_name):
+	pass
