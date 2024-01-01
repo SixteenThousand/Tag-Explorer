@@ -1,7 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import ast
 import widgets as wg
-import mock
+import utils
 import search
 import new_lib
 import edit_lib
@@ -37,7 +38,7 @@ results_lb = tk.Listbox(
 open_bu = ttk.Button(
 		output_box,
 		text="Open",
-		command=mock.button_handler
+		command=utils.display_msg
 )
 
 # input_box: frame containing all the input widgets. Contains:
@@ -67,7 +68,7 @@ tags_sl = wg.SearchList(
 search_bu = ttk.Button(
 		input_box,
 		text="Search...",
-		command=mock.button_handler
+		command=utils.display_msg
 )
 
 # library box: frame containing widgets needed to select a library to search
@@ -85,8 +86,9 @@ lib_sl = wg.SearchList(
 		"browse"  # only allows one item to be selected at a time
 )
 def select_library():
-	search.get_library_data(lib_sl.curselect)  # TBC
-	tags_sl.options.set(list(search.lib_tags))
+	print(ast.literal_eval(lib_sl.get_selection()))  # debug
+	# search.get_library_data(lib_sl.get_selection()[0])
+	# tags_sl.options.set(list(search.lib_tags))
 select_bu = ttk.Button(
 		lib_box,
 		text="Confirm",
@@ -107,22 +109,22 @@ opt_widgets = [
 	ttk.Button(
 		opt_box,
 		text="New Library",
-		command=mock.button_handler
+		command=utils.display_msg
 	),
 	ttk.Button(
 		opt_box,
 		text="Edit Library",
-		command=mock.button_handler
+		command=utils.display_msg
 	),
 	ttk.Button(
 		opt_box,
 		text="New Book",
-		command=mock.button_handler
+		command=utils.display_msg
 	),
 	ttk.Button(
 		opt_box,
 		text="Configuration",
-		command=mock.button_handler
+		command=utils.display_msg
 	)
 ]
 

@@ -20,13 +20,15 @@ def setup():
 	global lib_tags
 	lib_tags = set()
 	global lib_books
-	lib_books = dict()
+	lib_books = set()
 	
 	# the location of all data used by tag explorer
 	global EXT
 	EXT = ".tgx"
 	global DATA_DIR
 	DATA_DIR = "tag-explorer"
+	global SEPARATOR
+	SEPARATOR = " ;; "
 	
 	# create config/data directory if it does not exist already
 	if os.name == "nt":
@@ -47,20 +49,21 @@ def setup():
 
 
 class Book():
-	def __init__(self,path,title,other_info,tags):
-		self.path = path
-		self.title = title
-		self.other_info = other_info
-		self.tags = tags
-
-def get_book(line):
-	data = line.split(" ;; ")
-	return Book(
-		data[0],
-		data[1],
-		data[2],
-		set(data[3].split(","))
-	)
+	def __init__(self,line):
+		data = line.split(SEPARATOR)
+		self.path = data[0]
+		self.title = Book.parse_title(data[1])
+		self.other_info = data[2]
+		self.tags = set(data[3].split(","))
+	
+	@staticmethod
+	def parse_title(title_str):
+		return title_str
 
 def get_library_data(lib_name):
-	pass
+	with open(libs[lib_name],"r",encoding="utf-8") as fp:
+		fp.readline()
+		for line in fp:
+			b = Book(line)
+			lib_books.add(b)
+			lib_tags = lib_tags.union(b.tags)
