@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 import ast
 import widgets as wg
 import utils
-import search
+import backend
 import new_lib
 import edit_lib
 import new_book
@@ -65,10 +65,17 @@ tags_sl = wg.SearchList(
 		6,
 		"extended"  # allows multiple items to be selected at once
 )
+def perform_search():
+	backend.search(
+		title_sw.search_term.get(),
+		other_info_sw.search_term.get(),
+		tags_sl.get_selection()
+	)
+	results_list.set([str(x) for x in backend.results])
 search_bu = ttk.Button(
 		input_box,
 		text="Search...",
-		command=utils.display_msg
+		command=perform_search
 )
 
 # library box: frame containing widgets needed to select a library to search
@@ -86,8 +93,8 @@ lib_sl = wg.SearchList(
 		"browse"  # only allows one item to be selected at a time
 )
 def select_library():
-	search.get_library_data(lib_sl.get_selection()[0])
-	tags_sl.options.set(list(search.lib_tags))
+	backend.get_library_data(lib_sl.get_selection()[0])
+	tags_sl.options.set(list(backend.lib_tags))
 select_bu = ttk.Button(
 		lib_box,
 		text="Confirm",
@@ -166,8 +173,8 @@ def populate():
 
 def run():
 	# technically the entrypoint of the whole application
-	search.setup()
-	lib_sl.options.set(list(search.libs.keys()))
+	backend.setup()
+	lib_sl.options.set(list(backend.libs.keys()))
 	populate()
 	root.mainloop()
 

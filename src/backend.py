@@ -3,7 +3,6 @@
 import os
 
 
-
 def setup():
 	"""
 		Makes all of the things Tag Explorer needs to run on the back end.
@@ -29,6 +28,10 @@ def setup():
 	DATA_DIR = "tag-explorer"
 	global SEPARATOR
 	SEPARATOR = " ;; "
+	
+	# list of search results
+	global results
+	results = []
 	
 	# create config/data directory if it does not exist already
 	if os.name == "nt":
@@ -59,6 +62,17 @@ class Book():
 	@staticmethod
 	def parse_title(title_str):
 		return title_str
+	
+	def __str__(self):
+		return f"{self.title}, {self.other_info}"
+	
+	def __repr__(self):
+		return f"""
+			Title: {self.title}
+			Other Information: {self.other_info}
+			Location: {self.path}
+			Tags: {self.tags}
+		"""
 
 def get_library_data(lib_name):
 	with open(os.path.join(DATA_DIR,lib_name+EXT),"r",encoding="utf-8") as fp:
@@ -67,3 +81,19 @@ def get_library_data(lib_name):
 			b = Book(line)
 			lib_books.add(b)
 			lib_tags.update(b.tags)
+
+def title_match(search_term,item):
+	return search_term in item
+
+def other_info_match(search_term,item):
+	return search_term in item
+
+
+def search(title,other_info,tags):
+	for book in lib_books:
+		if (
+				set(tags) < book.tags and
+				title_match(title,book.title) and
+				other_info_match(other_info,book.other_info)
+			):
+			results.append(book)
