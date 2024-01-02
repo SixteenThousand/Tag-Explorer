@@ -10,7 +10,9 @@ DEFAULT_MSG = """
 def display_msg(msg=DEFAULT_MSG):
 	root = tk.Tk()
 	root.title("---")
-	ttk.Label(text=msg).grid(row=0,column=0)
+	frame = ttk.Frame(root)
+	frame.grid(row=0,column=0)
+	ttk.Label(frame,text=msg).grid(row=0,column=0)
 	root.mainloop()
 
 def get_pyobj(s):
