@@ -44,8 +44,7 @@ class SearchList():
 		self.input_wg.grid(row=r,column=c+1,sticky="w")
 	
 	def get_selection(self):
-		# return [
-		# 		utils.tuplestr_to_list(self.options.get())[i]
-		# 		for i in self.input_wg.curselection()
-		# ]
-		pass
+		return [
+				utils.get_pyobj(self.options.get())[i] 
+				for i in self.input_wg.curselection()
+		]

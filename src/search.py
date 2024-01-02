@@ -43,7 +43,7 @@ def setup():
 		if not thing.name.endswith(EXT):
 			continue
 		fp = open(thing.path,"r",encoding="utf-8")
-		libs[thing.name.split(".")[0]] = fp.readline()
+		libs[thing.name.split(".")[0]] = fp.readline().strip()
 		fp.close()
 		
 
@@ -61,9 +61,9 @@ class Book():
 		return title_str
 
 def get_library_data(lib_name):
-	with open(libs[lib_name],"r",encoding="utf-8") as fp:
+	with open(os.path.join(DATA_DIR,lib_name+EXT),"r",encoding="utf-8") as fp:
 		fp.readline()
 		for line in fp:
 			b = Book(line)
 			lib_books.add(b)
-			lib_tags = lib_tags.union(b.tags)
+			lib_tags.update(b.tags)

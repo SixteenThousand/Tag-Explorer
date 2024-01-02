@@ -12,3 +12,10 @@ def display_msg(msg=DEFAULT_MSG):
 	root.title("---")
 	ttk.Label(text=msg).grid(row=0,column=0)
 	root.mainloop()
+
+def get_pyobj(s):
+	"""
+		Takes a string that is the representation of a python expression, and
+		converts it to that python expression.
+	"""
+	return eval(compile(s,"<string>","eval"))

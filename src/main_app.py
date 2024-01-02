@@ -86,9 +86,8 @@ lib_sl = wg.SearchList(
 		"browse"  # only allows one item to be selected at a time
 )
 def select_library():
-	print(ast.literal_eval(lib_sl.get_selection()))  # debug
-	# search.get_library_data(lib_sl.get_selection()[0])
-	# tags_sl.options.set(list(search.lib_tags))
+	search.get_library_data(lib_sl.get_selection()[0])
+	tags_sl.options.set(list(search.lib_tags))
 select_bu = ttk.Button(
 		lib_box,
 		text="Confirm",
