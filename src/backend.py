@@ -85,10 +85,10 @@ def get_library_data(lib_name):
 			lib_tags.update(b.tags)
 
 def title_match(search_term,item):
-	return search_term in item
+	return search_term.lower() in item.lower()
 
 def other_info_match(search_term,item):
-	return search_term in item
+	return search_term.lower() in item.lower()
 
 
 def search(title,other_info,tags):
