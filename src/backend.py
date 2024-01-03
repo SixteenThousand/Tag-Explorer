@@ -74,11 +74,13 @@ class Book():
 			Tags: {self.tags}
 		"""
 
+
 def get_library_data(lib_name):
+	lib_tags.clear()
 	with open(os.path.join(DATA_DIR,lib_name+EXT),"r",encoding="utf-8") as fp:
 		fp.readline()
 		for line in fp:
-			b = Book(line)
+			b = Book(line.strip())
 			lib_books.add(b)
 			lib_tags.update(b.tags)
 
@@ -90,6 +92,7 @@ def other_info_match(search_term,item):
 
 
 def search(title,other_info,tags):
+	results.clear()
 	for book in lib_books:
 		if (
 				set(tags) < book.tags and
