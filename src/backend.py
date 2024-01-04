@@ -67,12 +67,12 @@ class Book():
 		return f"{self.title}, {self.other_info}"
 	
 	def __repr__(self):
-		return f"""
-			Title: {self.title}
-			Other Information: {self.other_info}
-			Location: {self.path}
-			Tags: {self.tags}
-		"""
+		return "\n".join([
+			f"Title: {self.title}",
+			f"Other Information: {self.other_info}",
+			f"Location: {self.path}",
+			f"Tags: {self.tags}"
+		])
 
 
 def get_library_data(lib_name):

@@ -35,6 +35,14 @@ results_lb = tk.Listbox(
 		listvariable=results_list,
 		selectmode="browse"  # only allows one item to be selected at a time
 )
+selected_result= tk.StringVar()
+results_lb.bind(
+	"<<ListboxSelect>>",
+	lambda evt: selected_result.set(
+		repr(backend.results[results_lb.curselection()[0]])
+	)
+)
+result_la = ttk.Label(output_box,textvariable=selected_result)
 open_bu = ttk.Button(
 		output_box,
 		text="Open",
@@ -157,8 +165,9 @@ def populate():
 	# +++ THE RESULTS BOX +++
 	output_box.grid(row=1,column=1,sticky="n")
 	output_box_title.grid(row=0,column=0,columnspan=2)
-	results_lb.grid(row=2,column=0)
-	open_bu.grid(row=3,column=0)
+	results_lb.grid(row=2,column=0,columnspan=2)
+	result_la.grid(row=3,column=0)
+	open_bu.grid(row=3,column=1)
 	# +++ THE OPTIONS/CONFIGURATION BOX +++
 	opt_box.grid(row=2,column=0,columnspan=2)
 	opt_box_title.grid(row=0,column=0,columnspan=len(opt_widgets))
