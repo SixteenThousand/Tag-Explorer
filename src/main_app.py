@@ -184,7 +184,7 @@ def populate():
 def run():
 	# technically the entrypoint of the whole application
 	backend.setup()
-	lib_sl.options.set(list(backend.libs.keys()))
+	lib_sl.options.set(backend.libs)
 	populate()
 	root.mainloop()
 

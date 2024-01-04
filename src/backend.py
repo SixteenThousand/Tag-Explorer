@@ -15,7 +15,7 @@ def setup():
 	"""
 	# data about the selected library
 	global libs
-	libs = dict()
+	libs = []
 	global lib_tags
 	lib_tags = set()
 	global lib_books
@@ -46,9 +46,7 @@ def setup():
 	for thing in os.scandir(DATA_DIR):
 		if not thing.name.endswith(EXT):
 			continue
-		fp = open(thing.path,"r",encoding="utf-8")
-		libs[thing.name.split(".")[0]] = fp.readline().strip()
-		fp.close()
+		libs.append(thing.name.split(".")[0])
 		
 
 
