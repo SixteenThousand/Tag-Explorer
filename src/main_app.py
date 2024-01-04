@@ -1,6 +1,5 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import ast
 import widgets as wg
 import utils
 import backend
@@ -43,10 +42,12 @@ results_lb.bind(
 	)
 )
 result_la = ttk.Label(output_box,textvariable=selected_result)
+def open_result():
+	backend.results[results_lb.curselection()[0]].sys_open(backend.lib_path)
 open_bu = ttk.Button(
 		output_box,
 		text="Open",
-		command=utils.display_msg
+		command=open_result
 )
 
 # input_box: frame containing all the input widgets. Contains:

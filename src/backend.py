@@ -20,6 +20,7 @@ def setup():
 	lib_tags = set()
 	global lib_books
 	lib_books = set()
+	global lib_path
 	
 	# the location of all data used by tag explorer
 	global EXT
@@ -73,12 +74,17 @@ class Book():
 			f"Location: {self.path}",
 			f"Tags: {self.tags}"
 		])
+	
+	def sys_open(self,path):
+		print(os.path.join(path,self.path))  # debug
+		os.startfile(os.path.join(path,self.path))
 
 
 def get_library_data(lib_name):
 	lib_tags.clear()
+	global lib_path
 	with open(os.path.join(DATA_DIR,lib_name+EXT),"r",encoding="utf-8") as fp:
-		fp.readline()
+		lib_path = fp.readline().strip()
 		for line in fp:
 			b = Book(line.strip())
 			lib_books.add(b)
