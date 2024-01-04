@@ -21,3 +21,6 @@ def get_pyobj(s):
 		converts it to that python expression.
 	"""
 	return eval(compile(s,"<string>","eval"))
+
+def put(tk_obj,row,column,**kwargs):
+	tk_obj.grid(row=row,column=column,**kwargs)
