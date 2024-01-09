@@ -1,3 +1,11 @@
+### Note
+
+This repo is still very much in development, and should not be installed. The
+text below is meant to serve as a guide for the directory that the project is
+going in, which it should reach in the next few weeks.
+---
+
+
 # Tag Explorer
 Tag Explorer is a desktop application that allows its users to add tags to files
 & folders, a bit like how gmail works (assuming you don't just treat gmail tags
