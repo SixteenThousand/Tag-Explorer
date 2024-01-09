@@ -42,12 +42,12 @@ def setup():
 	if os.path.exists(DATA_DIR):
 		os.makedirs(DATA_DIR,exist_ok=True)
 	
-	# getting the names & locations of the libraries
+	# getting the names of the libraries
 	for thing in os.scandir(DATA_DIR):
 		if not thing.name.endswith(EXT):
 			continue
 		libs.append(thing.name.split(".")[0])
-		
+
 
 
 class Book():

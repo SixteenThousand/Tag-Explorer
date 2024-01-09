@@ -48,3 +48,31 @@ class SearchList():
 				utils.get_pyobj(self.options.get())[i] 
 				for i in self.input_wg.curselection()
 		]
+
+class CheckList():
+	"""
+		Custom tk widget that displays a scrollable list of checkboxes and an 
+		API to access the state of those checkboxes.
+	"""
+	def __init__(self,parent,width,height):
+		self.canvas = tk.Canvas(parent,width=width,height=height)
+		self.frame = ttk.Frame(self.canvas)
+		self.checkboxes = []
+		self.checked = []
+		self.canvas.create_window(50,50,anchor="nw",window=self.frame)
+	
+	def set_options(self,options):
+		self.checkboxes.clear()
+		self.checked.clear()
+		for i in range(len(options)):
+			item_name = tk.StringVar()
+			box = ttk.Checkbutton(
+				self.frame,
+				text=options[i],
+				variable=item_name,
+				onvalue=options[i],
+				offvalue=""
+			)
+			self.checkboxes.append(box)
+			self.checked.append(item_name)
+			utils.put(box,i,0,sticky="w")

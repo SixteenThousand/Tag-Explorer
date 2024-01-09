@@ -1,8 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import backend
 
 
-def run():
-	root = tk.Tk()
-	root.title("New Library")
-	root.mainloop()
+
