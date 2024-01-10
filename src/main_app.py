@@ -11,8 +11,6 @@ import config
 
 root = tk.Tk()
 root.title("Tag Explorer")
-style = ttk.Style()
-style.theme_use("clam")
 frame = ttk.Frame(root)
 
 # output_box: frame containing all the widgets that display the search 
@@ -181,11 +179,23 @@ def populate():
 			child.grid_configure(padx=5, pady=5)
 
 
+def add_theme():
+	styling = ttk.Style()
+	root.tk.call(
+		"lappend",
+		"auto_path",
+		"../themes/awthemes-10.4.0"
+	)
+	root.tk.call("package","require","awdark")
+	styling.theme_use("awdark")
+
+
 def run():
 	# technically the entrypoint of the whole application
 	backend.setup()
 	lib_sl.options.set(backend.libs)
 	populate()
+	add_theme()
 	root.mainloop()
 
 if __name__ =="__main__":

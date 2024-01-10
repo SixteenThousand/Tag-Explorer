@@ -2,6 +2,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import utils
 
+
+
 class SearchEntry():
 	"""
 		'Wrapper' class for the Entry widget.
@@ -23,6 +25,7 @@ class SearchEntry():
 	def position(self,r,c):
 		self.label.grid(row=r,column=c,sticky="e")
 		self.input_wg.grid(row=r,column=c+1,sticky="w")
+
 
 class SearchList():
 	"""
@@ -49,17 +52,23 @@ class SearchList():
 				for i in self.input_wg.curselection()
 		]
 
+
 class CheckList():
 	"""
 		Custom tk widget that displays a scrollable list of checkboxes and an 
 		API to access the state of those checkboxes.
 	"""
 	def __init__(self,parent,width,height):
-		self.canvas = tk.Canvas(parent,width=width,height=height)
+		self.canvas = tk.Canvas(
+			parent,
+			width=width,
+			height=height,
+			background="#33393b"
+		)
 		self.frame = ttk.Frame(self.canvas)
 		self.checkboxes = []
 		self.checked = []
-		self.canvas.create_window(50,50,anchor="nw",window=self.frame)
+		self.canvas.create_window(0,0,anchor="nw",window=self.frame)
 	
 	def set_options(self,options):
 		self.checkboxes.clear()
@@ -71,8 +80,12 @@ class CheckList():
 				text=options[i],
 				variable=item_name,
 				onvalue=options[i],
-				offvalue=""
+				offvalue="",
+				width=self.canvas["width"]
 			)
 			self.checkboxes.append(box)
 			self.checked.append(item_name)
-			utils.put(box,i,0,sticky="w")
+			utils.put(box,i,0,sticky="nw")
+	
+	def put(self,row,col,**kwargs):
+		self.canvas.grid(row=row,column=col,**kwargs)
