@@ -58,25 +58,40 @@ class CheckList():
 		Custom tk widget that displays a scrollable list of checkboxes and an 
 		API to access the state of those checkboxes.
 	"""
+	
+	MAX_SCROLLSIZE  = 10000
+		# believe it or not, this was the simplest way to get scrolling to work.
+		# I hate it.
+	
 	def __init__(self,parent,width,height):
+		self.container = ttk.Frame(parent)
 		self.canvas = tk.Canvas(
-			parent,
+			self.container,
 			width=width,
 			height=height,
+			scrollregion=(0,0,width,CheckList.MAX_SCROLLSIZE),
 			background="#33393b"
 		)
-		self.frame = ttk.Frame(self.canvas)
+		self.scrollbar = ttk.Scrollbar(
+			self.container,
+			orient=tk.VERTICAL,
+			command=self.canvas.yview
+		)
+		self.canvas["yscrollcommand"] = self.scrollbar.set
+		self.inner_frame = ttk.Frame(self.canvas)
 		self.checkboxes = []
 		self.checked = []
-		self.canvas.create_window(0,0,anchor="nw",window=self.frame)
+		self.canvas.create_window(0,0,anchor="nw",window=self.inner_frame)
 	
 	def set_options(self,options):
+		# remove any existing entries in the checklist
 		self.checkboxes.clear()
 		self.checked.clear()
+		# create the new checkboxes & position them within the canvas
 		for i in range(len(options)):
 			item_name = tk.StringVar()
 			box = ttk.Checkbutton(
-				self.frame,
+				self.inner_frame,
 				text=options[i],
 				variable=item_name,
 				onvalue=options[i],
@@ -88,4 +103,6 @@ class CheckList():
 			utils.put(box,i,0,sticky="nw")
 	
 	def put(self,row,col,**kwargs):
-		self.canvas.grid(row=row,column=col,**kwargs)
+		utils.put(self.canvas,0,0)
+		utils.put(self.scrollbar,0,1,sticky="ns")
+		self.container.grid(row=row,column=col,**kwargs)
