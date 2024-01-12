@@ -1,7 +1,7 @@
 ### Note
 
 This repo is still very much in development, and should not be installed. The
-text below is meant to serve as a guide for the directory that the project is
+text below is meant to serve as a guide for the direction that the project is
 going in, which it should reach in the next few weeks.
 ---
 
