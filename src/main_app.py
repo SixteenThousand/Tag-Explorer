@@ -66,17 +66,17 @@ other_info_sw = wg.SearchEntry(
 		input_box,
 		"Other Information"
 )
-tags_sl = wg.SearchList(
+tags_cl = wg.CheckList(
 		input_box,
 		"Tags",
-		6,
-		"extended"  # allows multiple items to be selected at once
+		50,
+		100
 )
 def perform_search():
 	backend.search(
 		title_sw.search_term.get(),
 		other_info_sw.search_term.get(),
-		tags_sl.get_selection()
+		tags_cl.get_selection()
 	)
 	results_list.set([str(x) for x in backend.results])
 search_bu = ttk.Button(
@@ -101,7 +101,7 @@ lib_sl = wg.SearchList(
 )
 def select_library():
 	backend.get_library_data(lib_sl.get_selection()[0])
-	tags_sl.options.set(list(backend.lib_tags))
+	tags_cl.set_options(list(backend.lib_tags))
 select_bu = ttk.Button(
 		lib_box,
 		text="Confirm",
@@ -159,7 +159,7 @@ def populate():
 	input_box_title.grid(row=0,column=0,columnspan=2)
 	title_sw.position(1,0)
 	other_info_sw.position(2,0)
-	tags_sl.position(3,0)
+	tags_cl.position(3,0)
 	search_bu.grid(row=4,column=0,columnspan=2,sticky="e")
 	# +++ THE RESULTS BOX +++
 	output_box.grid(row=1,column=1,sticky="n")

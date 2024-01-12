@@ -90,7 +90,7 @@ class CheckList():
 		self.checked = []
 		# position the widgets relative to self.container
 		self.canvas.create_window(0,0,anchor="nw",window=self.inner_frame)
-		utils.put(self.label,0,0)
+		utils.put(self.label,0,0,sticky="ne")
 		utils.put(self.canvas,0,1)
 		utils.put(self.scrollbar,0,2,sticky="ns")
 	
@@ -115,3 +115,6 @@ class CheckList():
 	
 	def position(self,row,col,**kwargs):
 		self.container.grid(row=row,column=col,**kwargs)
+	
+	def get_selection(self):
+		return filter(None,self.checked)
