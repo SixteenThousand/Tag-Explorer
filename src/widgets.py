@@ -86,7 +86,6 @@ class CheckList():
 			)
 		)
 		# variables holding the current state
-		self.checkboxes = []
 		self.checked = []
 		# position the widgets relative to self.container
 		self.canvas.create_window(0,0,anchor="nw",window=self.inner_frame)
@@ -95,7 +94,6 @@ class CheckList():
 	
 	def set_options(self,options):
 		# remove any existing entries in the checklist
-		self.checkboxes.clear()
 		self.checked.clear()
 		# create the new checkboxes & position them within the canvas
 		for i in range(len(options)):
@@ -108,7 +106,6 @@ class CheckList():
 				offvalue="",
 				width=self.canvas["width"]
 			)
-			self.checkboxes.append(box)
 			self.checked.append(item_name)
 			utils.put(box,i,0,sticky="nw")
 	
