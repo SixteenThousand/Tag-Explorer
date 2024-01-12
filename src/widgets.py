@@ -23,8 +23,8 @@ class SearchEntry():
 		)
 	
 	def position(self,r,c):
-		self.label.grid(row=r,column=c,sticky="e")
-		self.input_wg.grid(row=r,column=c+1,sticky="w")
+		self.label.grid(row=r,column=c,sticky="ne")
+		self.input_wg.grid(row=r,column=c+1,sticky="nw")
 
 
 class SearchList():
@@ -63,7 +63,7 @@ class CheckList():
 		# declare a frame to hold all the widgets
 		self.container = ttk.Frame(parent)
 		# declare the actual widgets
-		self.label = ttk.Label(self.container,text=name)
+		self.label = ttk.Label(parent,text=name)
 		self.canvas = tk.Canvas(
 			self.container,
 			width=width,
@@ -90,7 +90,6 @@ class CheckList():
 		self.checked = []
 		# position the widgets relative to self.container
 		self.canvas.create_window(0,0,anchor="nw",window=self.inner_frame)
-		utils.put(self.label,0,0,sticky="ne")
 		utils.put(self.canvas,0,1)
 		utils.put(self.scrollbar,0,2,sticky="ns")
 	
@@ -113,8 +112,9 @@ class CheckList():
 			self.checked.append(item_name)
 			utils.put(box,i,0,sticky="nw")
 	
-	def position(self,row,col,**kwargs):
-		self.container.grid(row=row,column=col,**kwargs)
+	def position(self,row,col):
+		utils.put(self.label,row,col,sticky="ne")
+		utils.put(self.container,row,col+1,sticky="nw")
 	
 	def get_selection(self):
 		return filter(None,self.checked)

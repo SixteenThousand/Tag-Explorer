@@ -69,7 +69,7 @@ other_info_sw = wg.SearchEntry(
 tags_cl = wg.CheckList(
 		input_box,
 		"Tags",
-		50,
+		300,
 		100
 )
 def perform_search():
