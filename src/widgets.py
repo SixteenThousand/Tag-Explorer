@@ -63,8 +63,9 @@ class CheckList():
 		# believe it or not, this was the simplest way to get scrolling to work.
 		# I hate it.
 	
-	def __init__(self,parent,width,height):
+	def __init__(self,parent,name,width,height):
 		self.container = ttk.Frame(parent)
+		self.label = ttk.Label(self.container,text=name)
 		self.canvas = tk.Canvas(
 			self.container,
 			width=width,
@@ -79,9 +80,14 @@ class CheckList():
 		)
 		self.canvas["yscrollcommand"] = self.scrollbar.set
 		self.inner_frame = ttk.Frame(self.canvas)
+		# declare variables holding the current state
 		self.checkboxes = []
 		self.checked = []
+		# position the widgets relative to self.container
 		self.canvas.create_window(0,0,anchor="nw",window=self.inner_frame)
+		utils.put(self.label,0,0)
+		utils.put(self.canvas,0,1)
+		utils.put(self.scrollbar,0,2,sticky="ns")
 	
 	def set_options(self,options):
 		# remove any existing entries in the checklist
@@ -103,6 +109,4 @@ class CheckList():
 			utils.put(box,i,0,sticky="nw")
 	
 	def put(self,row,col,**kwargs):
-		utils.put(self.canvas,0,0)
-		utils.put(self.scrollbar,0,1,sticky="ns")
 		self.container.grid(row=row,column=col,**kwargs)
