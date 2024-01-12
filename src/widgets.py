@@ -119,3 +119,40 @@ class CheckList():
 	
 	def get_selection(self):
 		return list(filter(None,map(lambda x: x.get(),self.checked)))
+
+
+class SelectList():
+	"""
+		Widget that displays a scrollable list of items that the user can 
+		choose exactly one of. Essentially a glorified wrapper around the 
+		ttk.Treeview widget.
+	"""
+	
+	def __init__(self,parent,title,num_rows):
+		self.label = ttk.Label(parent,text=title)
+		self.container = ttk.Frame(parent)
+		self.tree = ttk.Treeview(self.container,height=num_rows)
+		self.scrollbar = ttk.Scrollbar(
+			self.container,
+			orient=tk.VERTICAL,
+			command=self.tree.yview
+		)
+		self.tree.configure(yscrollcommand=self.scrollbar.set)
+		# self.tree.bind(
+		# 	"<Configure>",
+		# 	lambda evt: self.tree.configure(scrollregion=self.tree.bbox(""))
+		# )
+		# postion the widgets relative to container
+		utils.put(self.tree,0,0)
+		utils.put(self.scrollbar,0,1,sticky="ns")
+		# currently selected item; will be an integer, i.e, the index of the
+		# item in the list of options specified
+		self.selected = None
+	
+	def set_options(self,options):
+		for option in options:
+			self.tree.insert("","end",option)
+	
+	def position(self,row,col):
+		utils.put(self.label,row,col,sticky="ne")
+		utils.put(self.container,row,col+1,sticky="nw")
