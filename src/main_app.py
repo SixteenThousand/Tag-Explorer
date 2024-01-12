@@ -68,7 +68,7 @@ other_info_sw = wg.SearchEntry(
 )
 tags_cl = wg.CheckList(
 		input_box,
-		"Tags",
+		"Tags:",
 		300,
 		100
 )

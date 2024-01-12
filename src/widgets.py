@@ -93,6 +93,8 @@ class CheckList():
 		utils.put(self.scrollbar,0,2,sticky="ns")
 	
 	def set_options(self,options):
+		# sort the options so people can find stuff!
+		options.sort(key=str.lower)
 		# remove any existing entries in the checklist
 		self.checked.clear()
 		for child in self.inner_frame.winfo_children():
@@ -116,4 +118,4 @@ class CheckList():
 		utils.put(self.container,row,col+1,sticky="nw")
 	
 	def get_selection(self):
-		return filter(None,self.checked)
+		return list(filter(None,map(lambda x: x.get(),self.checked)))
