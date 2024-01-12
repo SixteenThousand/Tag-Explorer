@@ -95,6 +95,8 @@ class CheckList():
 	def set_options(self,options):
 		# remove any existing entries in the checklist
 		self.checked.clear()
+		for child in self.inner_frame.winfo_children():
+			child.destroy()
 		# create the new checkboxes & position them within the canvas
 		for i in range(len(options)):
 			item_name = tk.StringVar()
