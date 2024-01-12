@@ -59,18 +59,15 @@ class CheckList():
 		API to access the state of those checkboxes.
 	"""
 	
-	MAX_SCROLLSIZE  = 10000
-		# believe it or not, this was the simplest way to get scrolling to work.
-		# I hate it.
-	
 	def __init__(self,parent,name,width,height):
+		# declare a frame to hold all the widgets
 		self.container = ttk.Frame(parent)
+		# declare the actual widgets
 		self.label = ttk.Label(self.container,text=name)
 		self.canvas = tk.Canvas(
 			self.container,
 			width=width,
 			height=height,
-			scrollregion=(0,0,width,CheckList.MAX_SCROLLSIZE),
 			background="#33393b"
 		)
 		self.scrollbar = ttk.Scrollbar(
@@ -78,9 +75,17 @@ class CheckList():
 			orient=tk.VERTICAL,
 			command=self.canvas.yview
 		)
-		self.canvas["yscrollcommand"] = self.scrollbar.set
+		# frame that manages placement of checkboxes wothin the canvas
 		self.inner_frame = ttk.Frame(self.canvas)
-		# declare variables holding the current state
+		# configuring the scrollbar
+		self.canvas.configure(yscrollcommand=self.scrollbar.set)
+		self.inner_frame.bind(
+			"<Configure>",
+			lambda evt: self.canvas.configure(
+				scrollregion=self.canvas.bbox("all")
+			)
+		)
+		# variables holding the current state
 		self.checkboxes = []
 		self.checked = []
 		# position the widgets relative to self.container
@@ -108,5 +113,5 @@ class CheckList():
 			self.checked.append(item_name)
 			utils.put(box,i,0,sticky="nw")
 	
-	def put(self,row,col,**kwargs):
+	def position(self,row,col,**kwargs):
 		self.container.grid(row=row,column=col,**kwargs)
