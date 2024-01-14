@@ -7,13 +7,20 @@ This is a mock window, here as a test handler for buttons.
 Please close this window.
 """
 
-def display_msg(msg=DEFAULT_MSG):
+def display_msg(msg=DEFAULT_MSG,isfile=False):
+	if isfile:
+		fp = open(msg,"r",encoding="utf-8")
+		lines = [line for line in fp]
+		fp.close()
+		msg = "".join(lines)
 	root = tk.Tk()
 	root.title("---")
 	frame = ttk.Frame(root)
 	frame.grid(row=0,column=0)
 	ttk.Label(frame,text=msg).grid(row=0,column=0)
+	add_theme(root)
 	root.mainloop()
+
 
 def get_pyobj(s):
 	"""
@@ -34,5 +41,3 @@ def add_theme(root):
 	)
 	root.tk.call("package","require","awdark")
 	styling.theme_use("awdark")
-
-
