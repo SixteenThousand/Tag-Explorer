@@ -163,3 +163,20 @@ class SelectList():
 	
 	def on_selection(self,func):
 		self.tree.bind("<<TreeviewSelect>>",func)
+
+
+class HelpButton():
+	"""
+		Wrapper for ttk.Button. Opens a new window with a message from a given
+		file.
+	"""
+	
+	def __init__(self,parent,msg_file):
+		self.button = ttk.Button(
+			parent,
+			text="Help...",
+			command=lambda: utils.display_msg(msg_file,True)
+		)
+	
+	def put(self,row,column,**kwargs):
+		utils.put(self.button,row,column,**kwargs)
