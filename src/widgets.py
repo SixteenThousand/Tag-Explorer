@@ -128,8 +128,7 @@ class SelectList():
 		ttk.Treeview widget.
 	"""
 	
-	def __init__(self,parent,title,num_rows):
-		self.label = ttk.Label(parent,text=title)
+	def __init__(self,parent,num_rows):
 		self.container = ttk.Frame(parent)
 		self.tree = ttk.Treeview(
 			self.container,
@@ -154,9 +153,8 @@ class SelectList():
 		for option in new_options:
 			self._options.append(self.tree.insert("","end",text=option))
 	
-	def position(self,row,col):
-		utils.put(self.label,row,col,sticky="ne")
-		utils.put(self.container,row,col+1,sticky="nw")
+	def put(self,row,col,**kwargs):
+		utils.put(self.container,row,col,**kwargs)
 	
 	def get_selection(self):
 		# selection returns ("I{1-indexed, hexdecimal, index of item}",)

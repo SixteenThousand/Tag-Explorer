@@ -26,7 +26,6 @@ output_box_title = ttk.Label(
 )
 results_sl = wg.SelectList(
 	output_box,
-	"debug",
 	15
 )
 selected_result= tk.StringVar()
@@ -160,7 +159,7 @@ def populate():
 	# +++ THE RESULTS BOX +++
 	output_box.grid(row=1,column=1,sticky="n")
 	output_box_title.grid(row=0,column=0,columnspan=2)
-	results_sl.position(1,0)
+	results_sl.put(1,0,columnspan=2)
 	result_la.grid(row=3,column=0)
 	open_bu.grid(row=3,column=1)
 	# +++ THE OPTIONS/CONFIGURATION BOX +++
