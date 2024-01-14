@@ -4,9 +4,7 @@ import widgets as wg
 import utils
 import backend
 import new_lib
-import edit_lib
 import new_book
-import config
 
 
 root = tk.Tk()
@@ -103,9 +101,8 @@ select_bu = ttk.Button(
 
 # opt_box: the frame containing all the options/config widgets. Contains:
 # - "New Library" button
-# - "Edit Library" button
 # - "New Book" button
-# - "Configuration" button
+# - "Help" button
 opt_box = ttk.Frame(frame)
 opt_box_title = ttk.Label(
 	opt_box,
@@ -119,17 +116,12 @@ opt_widgets = [
 	),
 	ttk.Button(
 		opt_box,
-		text="Edit Library",
-		command=utils.display_msg
-	),
-	ttk.Button(
-		opt_box,
 		text="New Book",
 		command=utils.display_msg
 	),
 	ttk.Button(
 		opt_box,
-		text="Configuration",
+		text="Help...",
 		command=utils.display_msg
 	)
 ]
