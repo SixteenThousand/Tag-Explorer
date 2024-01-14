@@ -156,7 +156,7 @@ def populate():
 	utils.put(opt_box,2,0,columnspan=2)
 	utils.put(opt_box_title,0,0,columnspan=len(opt_widgets))
 	for i in range(len(opt_widgets)):
-		utils.put(opt_widgets[i],0,i+1)
+		utils.put(opt_widgets[i],1,i+1)
 	
 	# add a little padding around all widgets
 	for subframe in frame.winfo_children():
@@ -164,23 +164,12 @@ def populate():
 			child.grid_configure(padx=5, pady=5)
 
 
-def add_theme():
-	styling = ttk.Style()
-	root.tk.call(
-		"lappend",
-		"auto_path",
-		"../themes/awthemes-10.4.0"
-	)
-	root.tk.call("package","require","awdark")
-	styling.theme_use("awdark")
-
-
 def run():
 	# technically the entrypoint of the whole application
 	backend.setup()
 	lib_sl.set_options(backend.libs)
 	populate()
-	add_theme()
+	utils.add_theme(root)
 	root.mainloop()
 
 if __name__ =="__main__":

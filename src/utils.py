@@ -24,3 +24,15 @@ def get_pyobj(s):
 
 def put(tk_obj,row,column,**kwargs):
 	tk_obj.grid(row=row,column=column,**kwargs)
+
+def add_theme(root):
+	styling = ttk.Style()
+	root.tk.call(
+		"lappend",
+		"auto_path",
+		"../themes/awthemes-10.4.0"
+	)
+	root.tk.call("package","require","awdark")
+	styling.theme_use("awdark")
+
+
