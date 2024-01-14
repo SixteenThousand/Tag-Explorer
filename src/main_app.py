@@ -26,7 +26,7 @@ output_box_title = ttk.Label(
 )
 results_sl = wg.SelectList(
 	output_box,
-	15
+	7
 )
 selected_result= tk.StringVar()
 results_sl.on_selection(
@@ -64,7 +64,7 @@ other_info_sw = wg.SearchEntry(
 tags_cl = wg.CheckList(
 	input_box,
 	"Tags:",
-	300,
+	180,
 	100
 )
 def perform_search():

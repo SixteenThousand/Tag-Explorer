@@ -18,7 +18,7 @@ class SearchEntry():
 		self.search_term = tk.StringVar()
 		self.input_wg = ttk.Entry(
 			frame,
-			width=50,
+			width=30,
 			textvariable=self.search_term
 		)
 	
