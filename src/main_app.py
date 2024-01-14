@@ -88,14 +88,12 @@ lib_box_title = ttk.Label(
 	lib_box,
 	text="Library"
 )
-lib_sl = wg.SearchList(
+lib_sl = wg.SelectList(
 	lib_box,
-	"Select Library",
-	3,
-	"browse"  # only allows one item to be selected at a time
+	3
 )
 def select_library():
-	backend.get_library_data(lib_sl.get_selection()[0])
+	backend.get_library_data(backend.libs[lib_sl.get_selection()])
 	tags_cl.set_options(list(backend.lib_tags))
 select_bu = ttk.Button(
 	lib_box,
@@ -147,7 +145,7 @@ def populate():
 	# +++ THE LIBRARY BOX +++
 	utils.put(lib_box,0,0,columnspan=2)
 	utils.put(lib_box_title,0,0,columnspan=2)
-	lib_sl.position(1,0)
+	lib_sl.put(1,0)
 	utils.put(select_bu,1,2)
 	# +++ THE INPUT BOX +++
 	utils.put(input_box,1,0,sticky="n")
@@ -188,7 +186,7 @@ def add_theme():
 def run():
 	# technically the entrypoint of the whole application
 	backend.setup()
-	lib_sl.options.set(backend.libs)
+	lib_sl.set_options(backend.libs)
 	populate()
 	add_theme()
 	root.mainloop()
