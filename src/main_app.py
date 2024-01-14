@@ -21,8 +21,8 @@ frame = ttk.Frame(root)
 # system default
 output_box = ttk.Frame(frame)
 output_box_title = ttk.Label(
-		output_box,
-		text="Results"
+	output_box,
+	text="Results"
 )
 results_sl = wg.SelectList(
 	output_box,
@@ -38,9 +38,9 @@ result_la = ttk.Label(output_box,textvariable=selected_result)
 def open_result():
 	backend.results[results_sl.get_selection()].sys_open(backend.lib_path)
 open_bu = ttk.Button(
-		output_box,
-		text="Open",
-		command=open_result
+	output_box,
+	text="Open",
+	command=open_result
 )
 
 # input_box: frame containing all the input widgets. Contains:
@@ -50,22 +50,22 @@ open_bu = ttk.Button(
 # - "Search" button
 input_box = ttk.Frame(frame)
 input_box_title = ttk.Label(
-		input_box,
-		text="Search terms"
+	input_box,
+	text="Search terms"
 )
 title_sw = wg.SearchEntry(
-		input_box,
-		"Title"
+	input_box,
+	"Title"
 )
 other_info_sw = wg.SearchEntry(
-		input_box,
-		"Other Information"
+	input_box,
+	"Other Information"
 )
 tags_cl = wg.CheckList(
-		input_box,
-		"Tags:",
-		300,
-		100
+	input_box,
+	"Tags:",
+	300,
+	100
 )
 def perform_search():
 	backend.search(
@@ -75,9 +75,9 @@ def perform_search():
 	)
 	results_sl.set_options([str(x) for x in backend.results])
 search_bu = ttk.Button(
-		input_box,
-		text="Search...",
-		command=perform_search
+	input_box,
+	text="Search...",
+	command=perform_search
 )
 
 # library box: frame containing widgets needed to select a library to search
@@ -85,22 +85,22 @@ search_bu = ttk.Button(
 # - directory ("Library") search box
 lib_box = ttk.Frame(frame)
 lib_box_title = ttk.Label(
-		lib_box,
-		text="Library"
+	lib_box,
+	text="Library"
 )
 lib_sl = wg.SearchList(
-		lib_box,
-		"Select Library",
-		3,
-		"browse"  # only allows one item to be selected at a time
+	lib_box,
+	"Select Library",
+	3,
+	"browse"  # only allows one item to be selected at a time
 )
 def select_library():
 	backend.get_library_data(lib_sl.get_selection()[0])
 	tags_cl.set_options(list(backend.lib_tags))
 select_bu = ttk.Button(
-		lib_box,
-		text="Confirm",
-		command=select_library
+	lib_box,
+	text="Confirm",
+	command=select_library
 )
 
 # opt_box: the frame containing all the options/config widgets. Contains:
@@ -110,8 +110,8 @@ select_bu = ttk.Button(
 # - "Configuration" button
 opt_box = ttk.Frame(frame)
 opt_box_title = ttk.Label(
-		opt_box,
-		text="Options..."
+	opt_box,
+	text="Options..."
 )
 opt_widgets = [
 	ttk.Button(
@@ -143,30 +143,30 @@ def populate():
 	# decides where all the widgets should go
 	root.rowconfigure(0,weight=1)
 	root.columnconfigure(0,weight=1)
-	frame.grid(column=0,row=0,sticky="nw")
+	utils.put(frame,0,0,sticky="nw")
 	# +++ THE LIBRARY BOX +++
-	lib_box.grid(row=0,column=0,columnspan=2)
-	lib_box_title.grid(row=0,column=0,columnspan=2)
+	utils.put(lib_box,0,0,columnspan=2)
+	utils.put(lib_box_title,0,0,columnspan=2)
 	lib_sl.position(1,0)
-	select_bu.grid(row=1,column=2)
+	utils.put(select_bu,1,2)
 	# +++ THE INPUT BOX +++
-	input_box.grid(row=1,column=0,sticky="n")
-	input_box_title.grid(row=0,column=0,columnspan=2)
+	utils.put(input_box,1,0,sticky="n")
+	utils.put(input_box_title,0,0,columnspan=2)
 	title_sw.position(1,0)
 	other_info_sw.position(2,0)
 	tags_cl.position(3,0)
-	search_bu.grid(row=4,column=0,columnspan=2,sticky="e")
+	utils.put(search_bu,4,0,columnspan=2,sticky="e")
 	# +++ THE RESULTS BOX +++
-	output_box.grid(row=1,column=1,sticky="n")
-	output_box_title.grid(row=0,column=0,columnspan=2)
+	utils.put(output_box,1,1,sticky="n")
+	utils.put(output_box_title,0,0,columnspan=2)
 	results_sl.put(1,0,columnspan=2)
-	result_la.grid(row=3,column=0)
-	open_bu.grid(row=3,column=1)
+	utils.put(result_la,3,0)
+	utils.put(open_bu,3,1)
 	# +++ THE OPTIONS/CONFIGURATION BOX +++
-	opt_box.grid(row=2,column=0,columnspan=2)
-	opt_box_title.grid(row=0,column=0,columnspan=len(opt_widgets))
+	utils.put(opt_box,2,0,columnspan=2)
+	utils.put(opt_box_title,0,0,columnspan=len(opt_widgets))
 	for i in range(len(opt_widgets)):
-		opt_widgets[i].grid(row=0,column=i+1)
+		utils.put(opt_widgets[i],0,i+1)
 	
 	# add a little padding around all widgets
 	for subframe in frame.winfo_children():
