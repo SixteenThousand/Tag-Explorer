@@ -3,8 +3,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 DEFAULT_MSG = """
-	This is a mock window, here as a test handler for buttons in the main app.
-	Please exit now.
+This is a mock window, here as a test handler for buttons.
+Please close this window.
 """
 
 def display_msg(msg=DEFAULT_MSG):
