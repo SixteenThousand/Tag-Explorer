@@ -159,4 +159,6 @@ class SelectList():
 		utils.put(self.container,row,col+1,sticky="nw")
 	
 	def get_selection(self):
+		# selection returns ("I{1-indexed, hexdecimal, index of item}",)
+		# for children of the root item
 		return int(self.tree.selection()[0][1:],base=16) - 1
