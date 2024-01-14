@@ -74,7 +74,6 @@ class Book():
 		])
 	
 	def sys_open(self,path):
-		print(os.path.join(path,self.path))  # debug
 		os.startfile(os.path.join(path,self.path))
 
 
