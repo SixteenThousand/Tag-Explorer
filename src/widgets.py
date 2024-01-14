@@ -162,3 +162,6 @@ class SelectList():
 		# selection returns ("I{1-indexed, hexdecimal, index of item}",)
 		# for children of the root item
 		return int(self.tree.selection()[0][1:],base=16) - 1
+	
+	def on_selection(self,func):
+		self.tree.bind("<<TreeviewSelect>>",func)
