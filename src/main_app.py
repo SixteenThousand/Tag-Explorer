@@ -24,24 +24,20 @@ output_box_title = ttk.Label(
 		output_box,
 		text="Results"
 )
-results_list = tk.StringVar()
-results_lb = tk.Listbox(
-		output_box,
-		height=10,
-		width=100,
-		listvariable=results_list,
-		selectmode="browse"  # only allows one item to be selected at a time
+results_sl = wg.SelectList(
+	output_box,
+	"debug",
+	15
 )
 selected_result= tk.StringVar()
-results_lb.bind(
-	"<<ListboxSelect>>",
+results_sl.on_selection(
 	lambda evt: selected_result.set(
-		repr(backend.results[results_lb.curselection()[0]])
+		backend.results[results_sl.get_selection()]
 	)
 )
 result_la = ttk.Label(output_box,textvariable=selected_result)
 def open_result():
-	backend.results[results_lb.curselection()[0]].sys_open(backend.lib_path)
+	backend.results[results_sl.get_selection()].sys_open(backend.lib_path)
 open_bu = ttk.Button(
 		output_box,
 		text="Open",
@@ -78,7 +74,7 @@ def perform_search():
 		other_info_sw.search_term.get(),
 		tags_cl.get_selection()
 	)
-	results_list.set([str(x) for x in backend.results])
+	results_sl.set_options([str(x) for x in backend.results])
 search_bu = ttk.Button(
 		input_box,
 		text="Search...",
@@ -164,7 +160,7 @@ def populate():
 	# +++ THE RESULTS BOX +++
 	output_box.grid(row=1,column=1,sticky="n")
 	output_box_title.grid(row=0,column=0,columnspan=2)
-	results_lb.grid(row=2,column=0,columnspan=2)
+	results_sl.position(1,0)
 	result_la.grid(row=3,column=0)
 	open_bu.grid(row=3,column=1)
 	# +++ THE OPTIONS/CONFIGURATION BOX +++
