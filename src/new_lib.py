@@ -17,6 +17,11 @@ auto_tags_cb = ttk.Checkbutton(frame,variable=auto_tags_var)
 
 shelves_cl = wg.CheckList(frame,"Shelves:",200,150)
 
+info_rgx_se = wg.SearchEntry(
+	frame,
+	"Information regex\n(leave blank if you do not want to use this)",
+)
+
 create_bu = ttk.Button(frame,text="Create New Library")
 
 
@@ -27,7 +32,11 @@ def populate():
 	utils.put(auto_tags_la,1,0,sticky="ne")
 	utils.put(auto_tags_cb,1,1,sticky="nw")
 	shelves_cl.position(2,0)
-	utils.put(create_bu,3,0,columnspan=3)
+	info_rgx_se.position(3,0)
+	utils.put(create_bu,4,0,columnspan=3)
+	
+	for child in frame.winfo_children():
+		child.grid_configure(padx=7,pady=7)
 
 def run():
 	utils.add_theme(root)
