@@ -1,0 +1,12 @@
+Turn this option on if you want Tag Explorer to 
+use existing directory names as tags on "books".
+So, for example, if we had a library with the
+following structure:
+	Library
+	|- Topic1
+	|	|- Book1
+	|	|- Book2
+	|- Topic2
+	|	|- Book3
+	|	|- SubTopic1
+	|	|	|-
