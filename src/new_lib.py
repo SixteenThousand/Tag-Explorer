@@ -13,32 +13,32 @@ def declare():
 	root.title("New Library")
 	global frame
 	frame = ttk.Frame(root)
-
+	
 	global dir_se
 	dir_se = wg.SearchEntry(frame,"Choose a directory")
-
+	
 	global auto_tags_la
 	auto_tags_la = ttk.Label(frame,text="Automatically generate tags?")
 	global auto_tags_var
 	auto_tags_var = tk.IntVar()  # will be 1 if button is ticked, 0 otheriwse
 	global auto_tags_cb
 	auto_tags_cb = ttk.Checkbutton(frame,variable=auto_tags_var)
-
+	
 	global auto_tags_h
 	auto_tags_h = wg.HelpButton(frame,assets+"auto-tags-help")
-
+	
 	global shelves_cl
 	shelves_cl = wg.CheckList(frame,"Shelves:",200,150)
-
+	
 	global shelves_h
 	shelves_h = wg.HelpButton(frame,assets+"shelves-help")
-
+	
 	global info_rgx_se
 	info_rgx_se = wg.SearchEntry(
 		frame,
 		"Information regex\n(leave blank if you do not want to use this)"
 	)
-
+	
 	global info_rgx_h
 	info_rgx_h = wg.HelpButton(frame,assets+"info-regex-help")
 	
