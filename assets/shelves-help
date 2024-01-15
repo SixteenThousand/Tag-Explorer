@@ -1,0 +1,6 @@
+For the purposes of Tag Explorer, a "Shelf" is
+just a directory in a library whose contents are
+one of:
+	a) books, i.e. items you want to be able to
+	search for, or;
+	b) other shelves

@@ -9,4 +9,8 @@ following structure:
 	|- Topic2
 	|	|- Book3
 	|	|- SubTopic1
-	|	|	|-
+	|	|	|- Book4
+	|	|	|- Book5
+then Book2 would have the tag Topic1, Book3 would
+have the tag Topic2, and Book4 would have the tags
+Topic2,SubTopic1.
