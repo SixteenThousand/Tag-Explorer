@@ -7,30 +7,43 @@ import widgets as wg
 
 assets = "../assets/"
 
-root = tk.Tk()
-root.title("New Library")
-frame = ttk.Frame(root)
+def declare():
+	global root
+	root = tk.Toplevel()
+	root.title("New Library")
+	global frame
+	frame = ttk.Frame(root)
 
-dir_se = wg.SearchEntry(frame,"Choose a directory")
+	global dir_se
+	dir_se = wg.SearchEntry(frame,"Choose a directory")
 
-auto_tags_la = ttk.Label(frame,text="Automatically generate tags?")
-auto_tags_var = tk.IntVar()  # will be 1 if button is ticked, 0 otheriwse
-auto_tags_cb = ttk.Checkbutton(frame,variable=auto_tags_var)
+	global auto_tags_la
+	auto_tags_la = ttk.Label(frame,text="Automatically generate tags?")
+	global auto_tags_var
+	auto_tags_var = tk.IntVar()  # will be 1 if button is ticked, 0 otheriwse
+	global auto_tags_cb
+	auto_tags_cb = ttk.Checkbutton(frame,variable=auto_tags_var)
 
-auto_tags_h = wg.HelpButton(frame,assets+"auto-tags-help")
+	global auto_tags_h
+	auto_tags_h = wg.HelpButton(frame,assets+"auto-tags-help")
 
-shelves_cl = wg.CheckList(frame,"Shelves:",200,150)
+	global shelves_cl
+	shelves_cl = wg.CheckList(frame,"Shelves:",200,150)
 
-shelves_h = wg.HelpButton(frame,assets+"shelves-help")
+	global shelves_h
+	shelves_h = wg.HelpButton(frame,assets+"shelves-help")
 
-info_rgx_se = wg.SearchEntry(
-	frame,
-	"Information regex\n(leave blank if you do not want to use this)",
-)
+	global info_rgx_se
+	info_rgx_se = wg.SearchEntry(
+		frame,
+		"Information regex\n(leave blank if you do not want to use this)"
+	)
 
-info_rgx_h = wg.HelpButton(frame,assets+"info-regex-help")
-
-create_bu = ttk.Button(frame,text="Create New Library")
+	global info_rgx_h
+	info_rgx_h = wg.HelpButton(frame,assets+"info-regex-help")
+	
+	global create_bu
+	create_bu = ttk.Button(frame,text="Create New Library")
 
 
 
@@ -50,6 +63,7 @@ def populate():
 		child.grid_configure(padx=7,pady=7)
 
 def run():
+	declare()
 	utils.add_theme(root)
 	populate()
 	root.mainloop()

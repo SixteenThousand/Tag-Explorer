@@ -2,6 +2,18 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+
+def add_theme(root):
+	styling = ttk.Style()
+	root.tk.call(
+		"lappend",
+		"auto_path",
+		"../themes/awthemes-10.4.0"
+	)
+	root.tk.call("package","require","awdark")
+	styling.theme_use("awdark")
+
+
 DEFAULT_MSG = """
 This is a mock window, here as a test handler for buttons.
 Please close this window.
@@ -13,7 +25,7 @@ def display_msg(msg=DEFAULT_MSG,isfile=False):
 		lines = [line for line in fp]
 		fp.close()
 		msg = "".join(lines)
-	root = tk.Tk()
+	root = tk.Toplevel()
 	root.title("---")
 	frame = ttk.Frame(root)
 	frame.grid(row=0,column=0)
@@ -29,15 +41,6 @@ def get_pyobj(s):
 	"""
 	return eval(compile(s,"<string>","eval"))
 
+
 def put(tk_obj,row,column,**kwargs):
 	tk_obj.grid(row=row,column=column,**kwargs)
-
-def add_theme(root):
-	styling = ttk.Style()
-	root.tk.call(
-		"lappend",
-		"auto_path",
-		"../themes/awthemes-10.4.0"
-	)
-	root.tk.call("package","require","awdark")
-	styling.theme_use("awdark")

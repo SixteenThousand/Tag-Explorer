@@ -112,7 +112,7 @@ opt_widgets = [
 	ttk.Button(
 		opt_box,
 		text="New Library",
-		command=utils.display_msg
+		command=new_lib.run
 	),
 	ttk.Button(
 		opt_box,
@@ -125,6 +125,7 @@ opt_widgets = [
 		command=utils.display_msg
 	)
 ]
+
 
 
 
@@ -168,9 +169,9 @@ def run():
 	# technically the entrypoint of the whole application
 	backend.setup()
 	lib_sl.set_options(backend.libs)
-	populate()
 	utils.add_theme(root)
+	populate()
 	root.mainloop()
 
-if __name__ =="__main__":
+if __name__ == "__main__":
 	run()
