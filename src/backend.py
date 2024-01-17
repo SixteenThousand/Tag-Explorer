@@ -2,6 +2,7 @@
 
 import os
 import re
+from icecream import ic  # debug
 
 
 def setup():
@@ -99,7 +100,7 @@ def search(title,other_info,tags):
 	results.clear()
 	for book in lib_books:
 		if (
-			set(tags) < book.tags and
+			set(tags) <= book.tags and
 			title_match(title,book.title) and
 			other_info_match(other_info,book.other_info)
 		):
