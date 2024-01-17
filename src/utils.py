@@ -44,3 +44,21 @@ def get_pyobj(s):
 
 def put(tk_obj,row,column,**kwargs):
 	tk_obj.grid(row=row,column=column,**kwargs)
+
+
+def to_unix(path):
+	"""Takes a path-like object and converts it to a unix-syle path."""
+	return path.replace("\\","/")
+
+
+def abs_to_rel(path,ancestor):
+	"""Removes one path-like object from the start of another"""
+	path = to_unix(path)
+	ancestor = to_unix(ancestor)
+	if path.startswith(ancestor):
+		result = path[len(ancestor):]
+	else:
+		return path
+	if result[0] == "/":
+		return result[1:]
+	return result

@@ -1,6 +1,7 @@
 # module for search functions; the main module for the back-end of the app
 
 import os
+import re
 
 
 def setup():
@@ -103,3 +104,39 @@ def search(title,other_info,tags):
 				other_info_match(other_info,book.other_info)
 			):
 			results.append(book)
+
+
+def create_library(path,name,use_auto_tags,shelves,info_rgx="(.*)()\\.?.*"):
+	"""
+		Writes a .tgx file for a new library.
+		path: path-like; the absolute path to the library
+		name: str; the name Tag Explorer wil use to refer to the new library
+		use_auto_tags: bool; if True, generate tags for each book based on
+		ancestor directory names
+		shelves: list(str); list of the subdirectories of the library that
+		should not be treated as books
+		info_rgx: str; a string representing a python regular expression with
+		exactly TWO capture groups. The first group is the title of the book,
+		the second any other information, such as author. By default title is
+		whole file/directory name, minus any file extensions
+	"""
+	fp = open(f"{DATA_DIR}/{name}.tgx","w",encoding="utf-8")
+	print(path,file=fp)
+	os.chdir(path)
+	for shelf in shelves:
+		tags = []
+		if use_auto_tags:
+			tags.extend(shelf.split("/"))
+		for thing in os.scandir(shelf):
+			if thing.path in shelves:
+				continue
+			info_match = re.match(info_rgx,thing.name)
+			print(
+				thing.path,
+				info_match[1],
+				info_match[2],
+				",".join(tags),
+				sep=SEPARATOR,
+				file=fp
+			)
+	fp.close()

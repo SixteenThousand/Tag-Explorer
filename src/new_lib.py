@@ -43,7 +43,19 @@ def declare():
 	info_rgx_h = wg.HelpButton(frame,assets+"info-regex-help")
 	
 	global create_bu
-	create_bu = ttk.Button(frame,text="Create New Library")
+	def create_bu_handler():
+		backend.create_library(
+			dir_se.search_term.get(),
+			auto_tags_var.get()==1,
+			shelves_cl.get_selection(),
+			info_rgx_se.search_term.get()
+		)
+		root.destroy()
+	create_bu = ttk.Button(
+		frame,
+		text="Create New Library",
+		command=create_bu_handler
+	)
 
 
 
