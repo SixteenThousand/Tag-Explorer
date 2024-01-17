@@ -6,7 +6,7 @@ metaphor that tag explorer uses it would most
 likely be the author of the book.
 
 The Information Regex should be a python-style
-regular expression with exactly two (2) capture
+regular expression with at least two (2) capture
 groups; the first capture will be the title, and
 the second will be the other information.
 

@@ -107,7 +107,9 @@ def search(title,other_info,tags):
 			results.append(book)
 
 
-def create_library(path,name,use_auto_tags,shelves,info_rgx="(.*)()\\.?.*"):
+DEFAULT_INFO_RGX = "(?:(.*)()\\..*)|(?:(.*)())"
+
+def create_library(path,name,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
 	"""
 		Writes a .tgx file for a new library.
 		path: path-like; the absolute path to the library
@@ -117,7 +119,7 @@ def create_library(path,name,use_auto_tags,shelves,info_rgx="(.*)()\\.?.*"):
 		shelves: list(str); list of the subdirectories of the library that
 		should not be treated as books
 		info_rgx: str; a string representing a python regular expression with
-		exactly TWO capture groups. The first group is the title of the book,
+		at least TWO capture groups. The first group is the title of the book,
 		the second any other information, such as author. By default title is
 		whole file/directory name, minus any file extensions
 	"""
