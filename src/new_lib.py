@@ -16,6 +16,14 @@ def declare():
 	
 	global dir_se
 	dir_se = wg.SearchEntry(frame,"Choose a directory")
+	global lib_name_se
+	lib_name_se = wg.SearchEntry(frame,"Give your new library a name")
+	global lib_confirm_bu
+	lib_confirm_bu = ttk.Button(
+		frame,
+		text="Confirm",
+		command=utils.display_msg
+	)
 	
 	global auto_tags_la
 	auto_tags_la = ttk.Label(frame,text="Automatically generate tags?")
@@ -46,6 +54,7 @@ def declare():
 	def create_bu_handler():
 		backend.create_library(
 			dir_se.search_term.get(),
+			lib_name_se.search_term.get(),
 			auto_tags_var.get()==1,
 			shelves_cl.get_selection(),
 			info_rgx_se.search_term.get()
@@ -62,14 +71,16 @@ def declare():
 def populate():
 	utils.put(frame,0,0)
 	dir_se.position(0,0)
-	utils.put(auto_tags_la,1,0,sticky="ne")
-	utils.put(auto_tags_cb,1,1,sticky="nw")
-	auto_tags_h.put(1,2)
-	shelves_cl.position(2,0)
-	shelves_h.put(2,2)
-	info_rgx_se.position(3,0)
-	info_rgx_h.put(3,2)
-	utils.put(create_bu,4,0,columnspan=3)
+	lib_name_se.position(1,0)
+	utils.put(lib_confirm_bu,2,0,columnspan=3)
+	utils.put(auto_tags_la,3,0,sticky="ne")
+	utils.put(auto_tags_cb,3,1,sticky="nw")
+	auto_tags_h.put(3,2)
+	shelves_cl.position(4,0)
+	shelves_h.put(4,2)
+	info_rgx_se.position(5,0)
+	info_rgx_h.put(5,2)
+	utils.put(create_bu,6,0,columnspan=3)
 	
 	for child in frame.winfo_children():
 		child.grid_configure(padx=7,pady=7)
