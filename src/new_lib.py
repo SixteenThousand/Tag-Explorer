@@ -22,7 +22,9 @@ def declare():
 	lib_confirm_bu = ttk.Button(
 		frame,
 		text="Confirm",
-		command=utils.display_msg
+		command=lambda: shelves_cl.set_options(
+			backend.get_shelves(dir_se.search_term.get())
+		)
 	)
 	
 	global auto_tags_la

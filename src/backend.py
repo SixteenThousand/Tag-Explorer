@@ -107,6 +107,15 @@ def search(title,other_info,tags):
 			results.append(book)
 
 
+
+def get_shelves(path):
+	"""Returns a list of all subdirectories (of any depth) of {path}."""
+	results = []
+	for subdir,x,y in os.walk(path):
+		results.append(subdir)
+	return results
+
+
 DEFAULT_INFO_RGX = "(\\.?[^\\.]+)(\\.?.*)"
 
 def create_library(path,name,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
