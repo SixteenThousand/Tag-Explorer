@@ -79,7 +79,3 @@ def run():
 	utils.add_theme(root)
 	populate()
 	root.mainloop()
-
-
-if __name__ == "__main__":
-	run()
