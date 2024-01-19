@@ -107,7 +107,7 @@ def search(title,other_info,tags):
 			results.append(book)
 
 
-DEFAULT_INFO_RGX = "(?:(.*)()\\..*)|(?:(.*)())"
+DEFAULT_INFO_RGX = "(\\.?[^\\.]+)(\\.?.*)"
 
 def create_library(path,name,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
 	"""
