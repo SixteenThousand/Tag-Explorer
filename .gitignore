@@ -1,6 +1,5 @@
 .yona/
 test/
-!test/test-data/
 dist/
 **/__pycache__/
 TODO

@@ -1,12 +1,13 @@
 ### Note
 
-This repo is still very much in development, and should not be installed. The
-text below is meant to serve as a guide for the direction that the project is
-going in, which it should reach in the next few weeks.
+The project is currently quite unstable, and cetainly not in a usable state
+yet. Please do not use it.
+
 ---
 
 
 # Tag Explorer
+
 Tag Explorer is a desktop application that allows its users to add tags to files
 & folders, a bit like how gmail works (assuming you don't just treat gmail tags
 like folders!).
@@ -14,19 +15,19 @@ like folders!).
 ---
 
 
+## Requirements
+
+Tag Explorer currently is only tested on Windows 10 with python 3.12.
+
+---
+
+
 ## Installation
 
-Firstly, this project is mostly for my own personal use, so you would probably
-be better off just finding another project that does something similar; if I
-find any myself, I'll post links here. If you still want to use this, you will
-need:
-	- python version 3.11 or later[^1].
-You can install Tag Explorer either by downloading one of the .pyz releases, or
-you can build it yourself by cloning the repo and running
 ```
 	python -m zipapp -o "./tagx.pyz" -m "main_app:run"
 ```
-[^1]: although it will likely work on earlier python3 versions as well
+
 ---
 
 
@@ -50,22 +51,13 @@ want to use in this "Library" in the Tags text box as a comma-separated list,
 There should now be a file called ".tgx" in the directory you chose, and in this
 file you should see something like the following:
 ```
-	info_rgx  ;;  (.*)_(.*)\..*
 	./TheColourOfMagic_TerryPratchett.pdf ;; TheColourOfMagic ;; TerryPratchett ;; fantasy,sci-fi,british
 	./Neverwhere_NeilGaiman.txt ;; Neverwhere ;; NeilGaiman ;; fantasy,british
 	./Maths-Books/Elements_Euclid.dvi ;; Elements ;; Euclid ;; maths,geometry
 	./Maths-Books/The-Bumper-Book-Of-Differential-Equations/ ;; The-Bumper-Book-Of-Differential-Equations ;;  ;; maths,analysis,ODEs,differential equations
 	./Maths-Books/Category-Theory/TheJoyOfCats.pdf ;; TheJoyOfCats ;;  ;; category theory,algebra,maths
-	./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategroyTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory, programming, haskell
+	./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategoryTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory, programming, haskell
 ```
 
 ### Edit an existing library
 ### Search for a "book"
----
-
-
-## Configuration
-
-
-## TODO's
-- Update this README

@@ -15,40 +15,33 @@ def setup():
 			tag explorer data on the user's machine, and create a directory
 			for storing that data
 	"""
-	# data about the selected library
-	global libs
-	libs = []
-	global lib_tags
-	lib_tags = set()
-	global lib_books
-	lib_books = set()
-	global lib_path
+	# data about the currently selected library
+	global lib_tags; lib_tags = set()
+	global lib_books; lib_books = set()
 	
-	# the location of all data used by tag explorer
-	global EXT
-	EXT = ".tgx"
-	global DATA_DIR
-	DATA_DIR = "tag-explorer"
-	global SEPARATOR
-	SEPARATOR = " ;; "
+	# the name of database files in directories tracked by TagEx
+	global DB_NAME; DB_NAME = ".tgx"
+	# the directory containing all TagEx-wide data & configuration
+	global DATA_DIR; DATA_DIR = "tag-explorer"
+	# the name of the file containing the list of all directories currently
+		# tracked by TagEx
+	global LIBS_LIST_FILE; LIBS_LIST_FILE = "libraries"
+	global SEPARATOR; SEPARATOR = " ;; "
 	
 	# list of search results
-	global results
-	results = []
+	global results; results = []
 	
 	# create config/data directory if it does not exist already
 	if os.name == "nt":
 		DATA_DIR = os.path.join(os.environ["home"],"AppData\\Local",DATA_DIR)
-	else:
-		DATA_DIR = os.path.join("~/.config",DATA_DIR)
+		LIBS_LIST_FILE = os.path.join(DATA_DIR,LIBS_LIST_FILE)
 	if os.path.exists(DATA_DIR):
 		os.makedirs(DATA_DIR,exist_ok=True)
 	
-	# getting the names of the libraries
-	for thing in os.scandir(DATA_DIR):
-		if not thing.name.endswith(EXT):
-			continue
-		libs.append(thing.name.split(".")[0])
+	# getting a list of direcories currently tracked by TagEx
+	global libs
+	with open(LIBS_LIST_FILE,"r",encoding="utf-8") as fp:
+		libs = fp.read().split("\n")
 
 
 
@@ -79,11 +72,9 @@ class Book():
 		os.startfile(os.path.join(path,self.path))
 
 
-def get_library_data(lib_name):
+def get_library_data(lib_path):
 	lib_tags.clear()
-	global lib_path
-	with open(os.path.join(DATA_DIR,lib_name+EXT),"r",encoding="utf-8") as fp:
-		lib_path = fp.readline().strip()
+	with open(os.path.join(lib_path,DB_NAME),"r",encoding="utf-8") as fp:
 		for line in fp:
 			b = Book(line.strip())
 			lib_books.add(b)
