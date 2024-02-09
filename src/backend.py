@@ -15,6 +15,8 @@ def setup():
 			tag explorer data on the user's machine, and create a directory
 			for storing that data
 	"""
+	# the absolute path of the currently selected library
+	global current_lib
 	# data about the currently selected library
 	global lib_tags; lib_tags = set()
 	global lib_books; lib_books = set()
@@ -68,11 +70,13 @@ class Book():
 			f"Tags: {self.tags}"
 		])
 	
-	def sys_open(self,path):
-		os.startfile(os.path.join(path,self.path))
+	def sys_open(self):
+		global current_lib
+		os.startfile(os.path.join(current_lib,self.path))
 
 
 def get_library_data(lib_path):
+	global current_lib; current_lib = lib_path 
 	lib_tags.clear()
 	with open(os.path.join(lib_path,DB_NAME),"r",encoding="utf-8") as fp:
 		for line in fp:

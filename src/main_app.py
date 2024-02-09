@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.filedialog as filedialog
 import widgets as wg
 import utils
 import backend
@@ -34,7 +35,7 @@ results_sl.on_selection(
 )
 result_la = ttk.Label(output_box,textvariable=selected_result)
 def open_result():
-	backend.results[results_sl.get_selection()].sys_open(backend.lib_path)
+	backend.results[results_sl.get_selection()].sys_open()
 open_bu = ttk.Button(
 	output_box,
 	text="Open",
@@ -86,17 +87,32 @@ lib_box_title = ttk.Label(
 	lib_box,
 	text="Library"
 )
+current_lib_var = tk.StringVar()
+current_lib_la = ttk.Label(
+	lib_box,
+	textvariable=current_lib_var
+)
+def choose_lib_dialog():
+	backend.get_library_data(filedialog.askdirectory())
+	tags_cl.set_options(list(backend.lib_tags))
+	current_lib_var.set(backend.current_lib)
+lib_dialog_bu = ttk.Button(
+	lib_box,
+	text="Choose Directory...",
+	command=choose_lib_dialog
+)
 lib_sl = wg.SelectList(
 	lib_box,
 	3
 )
-def select_library():
+def choose_lib_selectlist():
 	backend.get_library_data(backend.libs[lib_sl.get_selection()])
 	tags_cl.set_options(list(backend.lib_tags))
-select_bu = ttk.Button(
+	current_lib_var.set(backend.current_lib)
+confirm_lib_bu = ttk.Button(
 	lib_box,
 	text="Confirm",
-	command=select_library
+	command=choose_lib_selectlist
 )
 
 # opt_box: the frame containing all the options/config widgets. Contains:
@@ -139,7 +155,9 @@ def populate():
 	utils.put(lib_box,0,0,columnspan=2)
 	utils.put(lib_box_title,0,0,columnspan=2)
 	lib_sl.put(1,0)
-	utils.put(select_bu,1,2)
+	utils.put(confirm_lib_bu,1,2)
+	utils.put(lib_dialog_bu,2,0,columnspan=2)
+	utils.put(current_lib_la,3,0,columnspan=2)
 	# +++ THE INPUT BOX +++
 	utils.put(input_box,1,0,sticky="n")
 	utils.put(input_box_title,0,0,columnspan=2)
