@@ -87,32 +87,32 @@ lib_box_title = ttk.Label(
 	lib_box,
 	text="Library"
 )
+current_lib_legend_la = ttk.Label(
+    lib_box,
+    text="Selected library:"
+)
 current_lib_var = tk.StringVar()
 current_lib_la = ttk.Label(
 	lib_box,
 	textvariable=current_lib_var
 )
-def choose_lib_dialog():
-	backend.get_library_data(filedialog.askdirectory())
+def choose_lib(path):
+	backend.get_library_data(path)
 	tags_cl.set_options(list(backend.lib_tags))
 	current_lib_var.set(backend.current_lib)
 lib_dialog_bu = ttk.Button(
 	lib_box,
 	text="Choose Directory...",
-	command=choose_lib_dialog
+	command=lambda: choose_lib(filedialog.askdirectory())
 )
 lib_sl = wg.SelectList(
 	lib_box,
 	3
 )
-def choose_lib_selectlist():
-	backend.get_library_data(backend.libs[lib_sl.get_selection()])
-	tags_cl.set_options(list(backend.lib_tags))
-	current_lib_var.set(backend.current_lib)
-confirm_lib_bu = ttk.Button(
-	lib_box,
-	text="Confirm",
-	command=choose_lib_selectlist
+lib_sl.on_selection(
+	lambda evt: choose_lib(
+		backend.libs[lib_sl.get_selection()]
+	)
 )
 
 # opt_box: the frame containing all the options/config widgets. Contains:
@@ -155,9 +155,9 @@ def populate():
 	utils.put(lib_box,0,0,columnspan=2)
 	utils.put(lib_box_title,0,0,columnspan=2)
 	lib_sl.put(1,0)
-	utils.put(confirm_lib_bu,1,2)
-	utils.put(lib_dialog_bu,2,0,columnspan=2)
-	utils.put(current_lib_la,3,0,columnspan=2)
+	utils.put(lib_dialog_bu,1,1)
+	utils.put(current_lib_legend_la,3,0,sticky="e")
+	utils.put(current_lib_la,3,1,sticky="w")
 	# +++ THE INPUT BOX +++
 	utils.put(input_box,1,0,sticky="n")
 	utils.put(input_box_title,0,0,columnspan=2)

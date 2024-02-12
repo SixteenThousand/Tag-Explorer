@@ -113,11 +113,10 @@ def get_shelves(path):
 
 DEFAULT_INFO_RGX = "(\\.?[^\\.]+)(\\.?.*)"
 
-def create_library(path,name,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
+def create_library(path,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
 	"""
 		Writes a .tgx file for a new library.
 		path: path-like; the absolute path to the library
-		name: str; the name Tag Explorer wil use to refer to the new library
 		use_auto_tags: bool; if True, generate tags for each book based on
 		ancestor directory names
 		shelves: list(str); list of the subdirectories of the library that
@@ -127,8 +126,7 @@ def create_library(path,name,use_auto_tags,shelves,info_rgx=DEFAULT_INFO_RGX):
 		the second any other information, such as author. By default title is
 		whole file/directory name, minus any file extensions
 	"""
-	fp = open(f"{DATA_DIR}/{name}.tgx","w",encoding="utf-8")
-	print(path,file=fp)
+	fp = open(f"{path}/.tgx","w",encoding="utf-8")
 	os.chdir(path)
 	for shelf in shelves:
 		tags = []

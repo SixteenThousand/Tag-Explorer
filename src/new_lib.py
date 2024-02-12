@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.filedialog as filedialog
 import utils
 import backend
 import widgets as wg
@@ -14,17 +15,24 @@ def declare():
 	global frame
 	frame = ttk.Frame(root)
 	
-	global dir_se
-	dir_se = wg.SearchEntry(frame,"Choose a directory")
-	global lib_name_se
-	lib_name_se = wg.SearchEntry(frame,"Give your new library a name")
-	global lib_confirm_bu
-	lib_confirm_bu = ttk.Button(
+	global chosen_dir_legend_la; chosen_dir_legend_la = ttk.Label(
 		frame,
-		text="Confirm",
-		command=lambda: shelves_cl.set_options(
-			backend.get_shelves(dir_se.search_term.get())
+		text="Selected Directory:"
+	)
+	global chosen_dir_var; chosen_dir_var = tk.StringVar()
+	global chosen_dir_la; chosen_dir_la = ttk.Label(
+		frame,
+		textvariable=chosen_dir_var
+	)
+	def choose_directory():
+		chosen_dir_var.set(filedialog.askdirectory())
+		shelves_cl.set_options(
+			backend.get_shelves(chosen_dir_var.get())
 		)
+	global choose_dir_bu; choose_dir_bu = ttk.Button(
+		frame,
+		text="Choose Directory...",
+		command=choose_directory
 	)
 	
 	global auto_tags_la
@@ -55,8 +63,7 @@ def declare():
 	global create_bu
 	def create_bu_handler():
 		backend.create_library(
-			dir_se.search_term.get(),
-			lib_name_se.search_term.get(),
+			choose_dir_bu.search_term.get(),
 			auto_tags_var.get()==1,
 			shelves_cl.get_selection(),
 			info_rgx_se.search_term.get()
@@ -72,9 +79,9 @@ def declare():
 
 def populate():
 	utils.put(frame,0,0)
-	dir_se.position(0,0)
-	lib_name_se.position(1,0)
-	utils.put(lib_confirm_bu,2,0,columnspan=3)
+	utils.put(choose_dir_bu,0,0,columnspan=2)
+	utils.put(chosen_dir_legend_la,1,0,sticky="e")
+	utils.put(chosen_dir_la,1,1,sticky="w")
 	utils.put(auto_tags_la,3,0,sticky="ne")
 	utils.put(auto_tags_cb,3,1,sticky="nw")
 	auto_tags_h.put(3,2)
