@@ -16,28 +16,31 @@ class LibraryBox(tk.Frame):
 		Exposes:
 		- current_lib: tk.StringVar; stores the path to the library currently 
 		  selected by the user
+		- lib_list: widgets.SelectList; a list of currently managed libraries 
+		  - at least at time of opening TagEx - which the user can select a
+		  library to search from.
 	"""
 	
-	def __init__(self,input_box):
-		self.__init__()
+	def __init__(self,parent):
+		super().__init__(parent)
 		self.current_lib = tk.StringVar()
-		self.__title = ttk.Label(
+		self._title = ttk.Label(
 			self,
 			text="Library"
 		)
-		self.__lib_list = wg.SelectList(
+		self.lib_list = wg.SelectList(
 			self,
 			3
 		)
-		self.__lib_dialog = ttk.Button(
+		self._lib_dialog = ttk.Button(
 			self,
 			text="Choose Directory..."
 		)
-		self.__current_lib_legend = ttk.Label(
+		self._current_lib_legend = ttk.Label(
 			self,
 			text="Selected library:"
 		)
-		self.__current_lib_label = ttk.Label(
+		self._current_lib_label = ttk.Label(
 			self,
 			textvariable=self.current_lib
 		)
@@ -47,20 +50,20 @@ class LibraryBox(tk.Frame):
 			Binds handler to any events that cause self.current_lib to change, 
 			and passes the new value of self.current_lib to handler.
 		"""
-		self.__lib_list.on_selection(
-			lambda _: handler(backend.libs[self.__lib_list.get_selection()])
+		self.lib_list.on_selection(
+			lambda _: handler(backend.libs[self.lib_list.get_selection()])
 		)
-		self.__lib_dialog.configure(
+		self._lib_dialog.configure(
 			command = lambda: handler(filedialog.askdirectory())
 		)
 	
-	def position(self,row,col,**kwargs):
+	def put(self,row,col,**kwargs):
 		utils.put(self,row,col,**kwargs)
-		utils.put(self.__title,0,0,columnspan=2)
-		utils.put(self.__lib_list,1,0,sticky="e")
-		utils.put(self.__lib_dialog,1,0,sticky="w")
-		utils.put(self.__current_lib_legend,2,0,sticky="w")
-		utils.put(self.__current_lib_label,2,1,sticky="e")
+		utils.put(self._title,0,0,columnspan=2)
+		self.lib_list.put(1,0,sticky="e")
+		utils.put(self._lib_dialog,1,1,sticky="w")
+		utils.put(self._current_lib_legend,2,0,sticky="w")
+		utils.put(self._current_lib_label,2,1,sticky="e")
 
 
 
@@ -73,42 +76,63 @@ class InputBox(tk.Frame):
 		- 
 	"""
 	
-	def __init__(self):
-		self.__init__()
-		self.__title = ttk.Label(
+	def __init__(self,parent):
+		super().__init__(parent)
+		self._title = ttk.Label(
 			self,
 			text="Search terms"
 		)
-		self.__book_title = wg.SearchEntry(
+		self._book_title = wg.SearchEntry(
 			self,
 			"Title"
 		)
-		self.__other_info = wg.SearchEntry(
+		self._other_info = wg.SearchEntry(
 			self,
 			"Other Information"
 		)
-		self.__tags = wg.CheckList(
+		self._tags = wg.CheckList(
 			self,
 			"Tags:",
 			180,
 			100
 		)
-		self.__search_button = ttk.Button(
+		self._search_button = ttk.Button(
 			self,
-			text="Search...",
-			command=self.perform_search
+			text="Search..."
 		)
 	
 	def on_search(self,handler):
-		backend.search(
-			self.__book_title.search_term.get(),
-			self.__other_info.search_term.get(),
-			self.__tags.get_selection()
-		)
-		self.__search_button.configure(
-			command = handler
+		"""Sets handler for search button."""
+		self._search_button.configure(
+			command = lambda: self.perform_search(handler)
 		)
 	
+	def perform_search(self,handler):
+		"""
+			Performs a search of the current library for books matching the 
+			currently selected search inputs.
+			- handler: Callable[[],NoReturn]; sets some other widget to display 
+			  the results somewhere else.
+		"""
+		backend.search(
+			self._book_title.search_term.get(),
+			self._other_info.search_term.get(),
+			self._tags.get_selection()
+		)
+		handler()
+	
+	def put(self,row,col,**kwargs):
+		utils.put(self,row,col,**kwargs)
+		utils.put(self._title,0,0,columnspan=2)
+		self._book_title.position(1,0)
+		self._other_info.position(2,0)
+		self._tags.position(3,0)
+		utils.put(self._search_button,4,0,columnspan=2)
+	
+	def set_options(self,path):
+		"""Handler for LibraryBox.on_selection."""
+		backend.get_library_data(path)
+		self._tags.set_options(list(backend.lib_tags))
 
 class OutputBox(tk.Frame):
 	"""
@@ -120,50 +144,58 @@ class OutputBox(tk.Frame):
 		  the current system default
 	"""
 	
-	def __init__(self):
-		self.__init__()
+	def __init__(self,parent):
+		super().__init__(parent)
 		self.selected_result = tk.StringVar()
-		self.__title = ttk.Label(
+		self._title = ttk.Label(
 			self,
 			text="Results"
 		)
-		self.__results_list = wg.SelectList(
+		self._results_list = wg.SelectList(
 			self,
 			7
 		)
-		self.__results_list.on_selection(
+		self._results_list.on_selection(
 			lambda _: self.selected_result.set(
-				backend.results[self.__results_list.get_selection()]
+				backend.results[self._results_list.get_selection()]
 			)
 		)
-		self.selected_label = ttk.Label(
+		self._selected_label = ttk.Label(
 			self,
 			textvariable=self.selected_result
 		)
-		self.open_button = ttk.Button(
+		self._open_button = ttk.Button(
 			self,
 			text="Open",
 			command=self.open_result
 		)
 	
+	def put(self,row,col,**kwargs):
+		utils.put(self,row,col,**kwargs)
+		utils.put(self._title,0,0,columnspan=2)
+		self._results_list.put(1,0,columnspan=2)
+		utils.put(self._selected_label,2,0)
+		utils.put(self._open_button,2,1)
+	
 	def open_result(self):
-		backend.results[self.__results_list.get_selection()].sys_open()
+		backend.results[self._results_list.get_selection()].sys_open()
 	
 	def set_results(self,results):
-		self.__results_list.set_options(results)
+		self._results_list.set_options(results)
 
 
 class OptionsBox(tk.Frame):
 	"""
-		opt_box: the frame containing all the options/config widgets. Contains:
+		Options Box
+		The frame containing all the options/config widgets. Contains:
 		- "New Library" button
 		- "New Book" button
 		- "Help" button
 	"""
 	
-	def __init__(self):
-		self.__init__()
-		self.__title = ttk.Label(
+	def __init__(self,parent):
+		super().__init__(parent)
+		self._title = ttk.Label(
 			self,
 			text="Options..."
 		)
@@ -185,10 +217,10 @@ class OptionsBox(tk.Frame):
 			)
 		]
 	
-	def position(self,row,col,**kwargs):
+	def put(self,row,col,**kwargs):
 		self.grid(row=row,column=col,**kwargs)
-		utils.put(self.__title,0,0,columnspan=len(self.buttons))
-		for i in range(self.buttons):
+		utils.put(self._title,0,0,columnspan=len(self.buttons))
+		for i in range(len(self.buttons)):
 			utils.put(self.buttons[i],0,i)
 
 
@@ -198,60 +230,39 @@ class App(tk.Tk):
 	"""
 	
 	def __init__(self):
-		self.__init__()
+		# ensure the backend has initialised everything before *anything*  
+		# happens
+		backend.setup()
+		super().__init__()
 		self.title("Tag Explorer")
 		self.frame = ttk.Frame(self)
-		self.lib_box = LibraryBox()
-		self.input_box = InputBox()
-		self.output_box = OutputBox()
-		self.opts_box = OptionsBox()
-		# set up event listeners
+		self.lib_box = LibraryBox(self.frame)
+		self.input_box = InputBox(self.frame)
+		self.output_box = OutputBox(self.frame)
+		self.opts_box = OptionsBox(self.frame)
+	
+	def populate(self):
+		# place everything
+		utils.put(self.frame,0,0)
+		self.lib_box.put(0,0,columnspan=2)
+		self.input_box.put(1,0)
+		self.output_box.put(1,1)
+		self.opts_box.put(2,0,columnspan=2)
+		# add event handlers
+		self.lib_box.on_selection(self.input_box.set_options)
 		self.input_box.on_search(
 			lambda: self.output_box.set_results(
 				[str(x) for x in backend.results]
 			)
 		)
-	
-	def choose_lib(path):
-		backend.get_library_data(path)
-		tags_cl.set_options(list(backend.lib_tags))
-		current_lib_var.set(backend.current_lib)
-
-	def populate(self):
-		# decides where all the widgets should go
-		self.rowconfigure(0,weight=1)
-		self.columnconfigure(0,weight=1)
-		utils.put(self.frame,0,0,sticky="nw")
-		# +++ THE LIBRARY BOX +++
-		utils.put(lib_box,0,0,columnspan=2)
-		utils.put(lib_box_title,0,0,columnspan=2)
-		lib_sl.put(1,0)
-		utils.put(lib_dialog_bu,1,1)
-		utils.put(current_lib_legend_la,3,0,sticky="e")
-		utils.put(current_lib_la,3,1,sticky="w")
-		# +++ THE INPUT BOX +++
-		utils.put(input_box,1,0,sticky="n")
-		utils.put(input_box_title,0,0,columnspan=2)
-		title_sw.position(1,0)
-		other_info_sw.position(2,0)
-		tags_cl.position(3,0)
-		utils.put(search_bu,4,0,columnspan=2,sticky="e")
-		# +++ THE RESULTS BOX +++
-		utils.put(output_box,1,1,sticky="n")
-		utils.put(output_box_title,0,0,columnspan=2)
-		results_sl.put(1,0,columnspan=2)
-		utils.put(result_la,3,0)
-		utils.put(open_bu,3,1)
-		
 		# add a little padding around all widgets
-		for subframe in frame.winfo_children():
+		for subframe in self.frame.winfo_children():
 			for child in subframe.winfo_children():
 				child.grid_configure(padx=5, pady=5)
 	
-	def run():
+	def run(self):
 		# technically the entrypoint of the whole application
-		backend.setup()
-		lib_sl.set_options(backend.libs)
+		self.lib_box.lib_list.set_options(backend.libs)
 		utils.add_theme(self)
 		self.populate()
 		self.mainloop()

@@ -22,9 +22,9 @@ class SearchEntry():
 			textvariable=self.search_term
 		)
 	
-	def position(self,r,c):
-		self.label.grid(row=r,column=c,sticky="ne")
-		self.input_wg.grid(row=r,column=c+1,sticky="nw")
+	def position(self,row,col):
+		self.label.grid(row=row,column=col,sticky="ne")
+		self.input_wg.grid(row=row,column=col+1,sticky="nw")
 
 
 class SearchList():
@@ -42,14 +42,14 @@ class SearchList():
 			selectmode=mode
 		)
 	
-	def position(self,r,c):
-		self.label.grid(row=r,column=c,sticky="ne")
-		self.input_wg.grid(row=r,column=c+1,sticky="w")
+	def position(self,row,col):
+		self.label.grid(row=row,column=col,sticky="ne")
+		self.input_wg.grid(row=row,column=col+1,sticky="w")
 	
 	def get_selection(self):
 		return [
-				utils.get_pyobj(self.options.get())[i] 
-				for i in self.input_wg.curselection()
+			utils.get_pyobj(self.options.get())[i] 
+			for i in self.input_wg.curselection()
 		]
 
 
