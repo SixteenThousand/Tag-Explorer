@@ -8,7 +8,7 @@ import new_lib
 import new_book
 
 
-class LibraryBox(tk.Frame):
+class LibraryBox(ttk.Frame):
 	"""
 		Library box
 		The frame containing widgets needed to select a library to search 
@@ -66,9 +66,7 @@ class LibraryBox(tk.Frame):
 		utils.put(self._current_lib_label,2,1,sticky="e")
 
 
-
-
-class InputBox(tk.Frame):
+class InputBox(ttk.Frame):
 	"""
 		InputBox
 		The frame containing all search query widgets.
@@ -134,7 +132,8 @@ class InputBox(tk.Frame):
 		backend.get_library_data(path)
 		self._tags.set_options(list(backend.lib_tags))
 
-class OutputBox(tk.Frame):
+
+class OutputBox(ttk.Frame):
 	"""
 		output_box: frame containing all the widgets that display the search 
 		results. Contains: 
@@ -184,7 +183,7 @@ class OutputBox(tk.Frame):
 		self._results_list.set_options(results)
 
 
-class OptionsBox(tk.Frame):
+class OptionsBox(ttk.Frame):
 	"""
 		Options Box
 		The frame containing all the options/config widgets. Contains:
@@ -263,9 +262,10 @@ class App(tk.Tk):
 	def run(self):
 		# technically the entrypoint of the whole application
 		self.lib_box.lib_list.set_options(backend.libs)
-		utils.add_theme(self)
 		self.populate()
+		utils.add_theme(self)
 		self.mainloop()
+
 
 if __name__ == "__main__":
 	app = App()
