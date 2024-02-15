@@ -54,7 +54,8 @@ def declare():
 	global info_rgx_se
 	info_rgx_se = wg.SearchEntry(
 		frame,
-		"Information regex\n(leave blank if you do not want to use this)"
+		"Information regex\n(leave blank if you do not want to use this)",
+		char_width=30
 	)
 	
 	global info_rgx_h

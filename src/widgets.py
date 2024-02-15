@@ -13,12 +13,12 @@ class SearchEntry():
 		- search_term: tk.StringVar; The user's input.
 		- input_wg: ttk.Entry; The Entry widget
 	"""
-	def __init__(self,frame,name):
+	def __init__(self,frame,name,char_width):
 		self.label = ttk.Label(frame,text=f"{name}: ")
 		self.search_term = tk.StringVar()
 		self.input_wg = ttk.Entry(
 			frame,
-			width=30,
+			width=char_width,
 			textvariable=self.search_term
 		)
 	
@@ -29,6 +29,7 @@ class SearchEntry():
 
 class SearchList():
 	"""
+		**DEPRECATED**
 		'Wrapper' class for the Listbox widget.
 	"""
 	def __init__(self,frame,name,height,mode):
@@ -128,13 +129,14 @@ class SelectList():
 		ttk.Treeview widget.
 	"""
 	
-	def __init__(self,parent,num_rows):
+	def __init__(self,parent,num_rows,width):
 		self.container = ttk.Frame(parent)
 		self.tree = ttk.Treeview(
 			self.container,
 			height=num_rows,
 			selectmode="browse"
 		)
+		self.tree.column("#0",width=width)
 		self.scrollbar = ttk.Scrollbar(
 			self.container,
 			orient=tk.VERTICAL,

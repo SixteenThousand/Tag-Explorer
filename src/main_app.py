@@ -30,7 +30,8 @@ class LibraryBox(ttk.Frame):
 		)
 		self.lib_list = wg.SelectList(
 			self,
-			3
+			num_rows=7,
+			width=500
 		)
 		self._lib_dialog = ttk.Button(
 			self,
@@ -82,17 +83,19 @@ class InputBox(ttk.Frame):
 		)
 		self._book_title = wg.SearchEntry(
 			self,
-			"Title"
+			"Title",
+			char_width=50
 		)
 		self._other_info = wg.SearchEntry(
 			self,
-			"Other Information"
+			"Other Information",
+			char_width=50
 		)
 		self._tags = wg.CheckList(
 			self,
 			"Tags:",
-			180,
-			100
+			width=300,
+			height=200
 		)
 		self._search_button = ttk.Button(
 			self,
@@ -152,7 +155,8 @@ class OutputBox(ttk.Frame):
 		)
 		self._results_list = wg.SelectList(
 			self,
-			7
+			num_rows=15,
+			width=700
 		)
 		self._results_list.on_selection(
 			lambda _: self.selected_result.set(
@@ -264,6 +268,7 @@ class App(tk.Tk):
 		self.lib_box.lib_list.set_options(backend.libs)
 		self.populate()
 		utils.add_theme(self)
+		self.state("zoomed")  # maximises the window
 		self.mainloop()
 
 
