@@ -271,6 +271,9 @@ class App(tk.Tk):
 		self.state("zoomed")  # maximises the window
 		self.mainloop()
 
+def runapp():
+	app = App()
+	app.run()
 
 if __name__ == "__main__":
 	app = App()
