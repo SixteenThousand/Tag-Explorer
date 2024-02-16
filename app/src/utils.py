@@ -8,7 +8,7 @@ def add_theme(root):
 	root.tk.call(
 		"lappend",
 		"auto_path",
-		"../themes/awthemes-10.4.0"
+		"./themes/awthemes-10.4.0"
 	)
 	root.tk.call("package","require","awdark")
 	styling.theme_use("awdark")

@@ -3,7 +3,6 @@ import tkinter.ttk as ttk
 import utils
 
 
-
 class SearchEntry():
 	"""
 		'Wrapper' class for the Entry widget.
@@ -152,6 +151,7 @@ class SelectList():
 	def set_options(self,new_options):
 		for option in self._options:
 			self.tree.delete(option)
+		self._options.clear()
 		for option in new_options:
 			self._options.append(self.tree.insert("","end",text=option))
 	
@@ -161,7 +161,8 @@ class SelectList():
 	def get_selection(self):
 		# selection returns ("I{1-indexed, hexdecimal, index of item}",)
 		# for children of the root item
-		return int(self.tree.selection()[0][1:],base=16) - 1
+		# NOTE: index of item includes *deleted items*
+		return self._options.index(self.tree.selection()[0])
 	
 	def on_selection(self,func):
 		self.tree.bind("<<TreeviewSelect>>",func)
