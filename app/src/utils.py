@@ -3,6 +3,13 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+DEFAULT_MSG = """
+This is a mock window, here as a test handler for buttons.
+Please close this window.
+"""
+DEFAULT_BG_COLOUR = "#33393b"
+
+
 def add_theme(root):
 	styling = ttk.Style()
 	root.tk.call(
@@ -13,11 +20,6 @@ def add_theme(root):
 	root.tk.call("package","require","awdark")
 	styling.theme_use("awdark")
 
-
-DEFAULT_MSG = """
-This is a mock window, here as a test handler for buttons.
-Please close this window.
-"""
 
 def display_msg(msg=DEFAULT_MSG,isfile=False):
 	if isfile:

@@ -68,7 +68,7 @@ class CheckList():
 			self.container,
 			width=width,
 			height=height,
-			background="#33393b"
+			background=utils.DEFAULT_BG_COLOUR
 		)
 		self.scrollbar = ttk.Scrollbar(
 			self.container,

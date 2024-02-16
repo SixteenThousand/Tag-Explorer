@@ -51,11 +51,21 @@ class LibraryBox(ttk.Frame):
 			Binds handler to any events that cause self.current_lib to change, 
 			and passes the new value of self.current_lib to handler.
 		"""
+		def lib_list_handler(_):
+			nonlocal self,handler
+			lib = backend.libs[self.lib_list.get_selection()]
+			self.current_lib.set(lib)
+			handler(lib)
 		self.lib_list.on_selection(
-			lambda _: handler(backend.libs[self.lib_list.get_selection()])
+			lib_list_handler
 		)
+		def lib_dialog_handler():
+			nonlocal self,handler
+			lib = filedialog.askdirectory()
+			self.current_lib.set(lib)
+			handler(lib)
 		self._lib_dialog.configure(
-			command = lambda: handler(filedialog.askdirectory())
+			command = lib_dialog_handler
 		)
 	
 	def put(self,row,col,**kwargs):
@@ -104,23 +114,17 @@ class InputBox(ttk.Frame):
 	
 	def on_search(self,handler):
 		"""Sets handler for search button."""
+		def perform_search():
+			nonlocal self,handler
+			backend.search(
+				self._book_title.search_term.get(),
+				self._other_info.search_term.get(),
+				self._tags.get_selection()
+			)
+			handler()
 		self._search_button.configure(
-			command = lambda: self.perform_search(handler)
+			command = perform_search
 		)
-	
-	def perform_search(self,handler):
-		"""
-			Performs a search of the current library for books matching the 
-			currently selected search inputs.
-			- handler: Callable[[],NoReturn]; sets some other widget to display 
-			  the results somewhere else.
-		"""
-		backend.search(
-			self._book_title.search_term.get(),
-			self._other_info.search_term.get(),
-			self._tags.get_selection()
-		)
-		handler()
 	
 	def put(self,row,col,**kwargs):
 		utils.put(self,row,col,**kwargs)
@@ -269,6 +273,7 @@ class App(tk.Tk):
 		self.populate()
 		utils.add_theme(self)
 		self.state("zoomed")  # maximises the window
+		self.configure(background=utils.DEFAULT_BG_COLOUR)
 		self.mainloop()
 
 def runapp():
