@@ -71,13 +71,24 @@ Before that though, we should define some terms:
 1. Click Search.
 1. See if what you were looking for is in the results list. If it is, click on 
    it and click the "Open" button to, well, open it.
-	![Labelled screenshot of main window]()
+	<!-- ![Labelled screenshot of main window]() -->
 
 
 ### Creating a new "Library"
 1. Click the "New Library" button. This will open a new window:
-	![Screenshot of "New Library" Window]()
-1. 
+	<!-- ![Screenshot of "New Library" Window]() -->
+1. Choose whether you want Tag Explorer to automatically generate tags. If you 
+   tick this box, Tag Explorer will add the existing directory names in the 
+   path of each Book as tags of that Book.
+1. Choose Shelves. These are the subdirectories of the Library that tag 
+   Explorer will look for Books in. Note that each Shelf should *only* contain 
+   Books and other Shelves.
+1. Assign an information regex. This is how tag explorer will get the title and 
+   other information from each Book. By default, the titles will be the 
+   file/directory name of the Book, minus any file extensions, and the other 
+   information will be any file extensions. For more information, click the 
+   help button on the right.
+1. Click "Create New Library".
 
 There should now be a file called ".tgx" in the directory you chose, and in this
 file you should see something like the following:
@@ -89,11 +100,15 @@ file you should see something like the following:
 	./Maths-Books/Category-Theory/TheJoyOfCats.pdf ;; TheJoyOfCats ;;  ;; category theory,algebra,maths
 	./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategoryTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory, programming, haskell
 ```
+You can just manually add tags to books in the database now - indeed, that is
+why Tag Explorer uses a text file rather than a proper database - or you can
+add click on "New Book" and overwrite the existing data on some book with new
+data.
 
 
 ### Add a new "Book"
 1. Click the "New book" button at the bottom. This will open  a new window:
-	![Screenshot of "New Book" window]()
+	<!-- ![Screenshot of "New Book" window]() -->
 1. Click "Select file/directory". This will open a file explorer dialog from 
    which you can choose a new file or directory for Tag Explorer to manage. 
    Your choice will be shown below the button.
@@ -106,8 +121,15 @@ file you should see something like the following:
 1. Click "Finish".
 
 
+## Features needed for v0.0
+- [x] ability to select a library & search
+- [x] ability to open a Book
+- [ ] ability to create a new library
+- [ ] ability to create a new book
+- [ ] Working build script
+
 ## Possible Future Features
-These are things that could be in a future v0.2:
+These are things that could be in a future v0.1:
 - [ ] Command Line Interface
 - [ ] Ability to edit the data stored about a particular book
 - [ ] Ability to search for all Books which match *any* tags selected, rather 
