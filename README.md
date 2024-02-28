@@ -34,12 +34,12 @@ likely work on any windows system with python 3.
 
 ## Usage
 There are three main tasks you would want to do with Tag Explorer:
-	- [Search for a "Book"](#search-for-a-"book"), that is, find a tagged
-		file/directory in this "library";
-	- [Create a new "Library"](#creating-a-new-"library"), that is, make Tag
-		Explorer aware of a new directory so you can add tags to it;
-	- [Add a new "Book"](#add-a-new-"book"), that is, add tags to a 
-	  file/directory not currently tracked by Tag Explorer.
+- [Search for a "Book"](#search-for-a-"book"), that is, find a tagged
+    file/directory in this "library";
+- [Create a new "Library"](#creating-a-new-"library"), that is, make Tag
+    Explorer aware of a new directory so you can add tags to it;
+- [Add a new "Book"](#add-a-new-"book"), that is, add tags to a 
+  file/directory not currently tracked by Tag Explorer.
 More options may be added in future, but this is all you will be able to do 
 once the project has reached v0.0. See [Possible Future 
 Features](#possible-future-features).
@@ -71,12 +71,12 @@ Before that though, we should define some terms:
 1. Click Search.
 1. See if what you were looking for is in the results list. If it is, click on 
    it and click the "Open" button to, well, open it.
-	<!-- ![Labelled screenshot of main window]() -->
+    ![main window](./readme-assets/MainWindowShot_20240228.png)
 
 
 ### Creating a new "Library"
 1. Click the "New Library" button. This will open a new window:
-	<!-- ![Screenshot of "New Library" Window]() -->
+	![new library window](./readme-assets/NewLibShot_20240228.png)
 1. Choose whether you want Tag Explorer to automatically generate tags. If you 
    tick this box, Tag Explorer will add the existing directory names in the 
    path of each Book as tags of that Book.
