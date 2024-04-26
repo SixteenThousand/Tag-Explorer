@@ -272,7 +272,7 @@ class App(tk.Tk):
 		self.lib_box.lib_list.set_options(backend.libs)
 		self.populate()
 		utils.add_theme(self)
-		self.state("zoomed")  # maximises the window
+		# self.state("zoomed")  # maximises the window
 		self.configure(background=utils.DEFAULT_BG_COLOUR)
 		self.mainloop()
 

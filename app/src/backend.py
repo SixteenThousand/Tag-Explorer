@@ -36,9 +36,19 @@ def setup():
 	# create config/data directory if it does not exist already
 	if os.name == "nt":
 		DATA_DIR = os.path.join(os.environ["home"],"AppData\\Local",DATA_DIR)
-		LIBS_LIST_FILE = os.path.join(DATA_DIR,LIBS_LIST_FILE)
-	if os.path.exists(DATA_DIR):
+	elif os.name == "posix":
+		data_home = os.environ["HOME"] + "/.local/share"
+		try:
+			data_home = os.environ["XDG_DATA_HOME"]
+		except KeyError:
+			pass
+		DATA_DIR = os.path.join(data_home,DATA_DIR)
+	LIBS_LIST_FILE = os.path.join(DATA_DIR,LIBS_LIST_FILE)
+	if not os.path.exists(DATA_DIR):
 		os.makedirs(DATA_DIR,exist_ok=True)
+	if not os.path.exists(LIBS_LIST_FILE):
+		fp = open(LIBS_LIST_FILE,"a")
+		fp.close()
 	
 	# getting a list of direcories currently tracked by TagEx
 	global libs
