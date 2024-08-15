@@ -44,8 +44,7 @@ There are three main tasks you would want to do with Tag Explorer:
 - [Add a new "Book"](#add-a-new-"book"), that is, add tags to a 
   file/directory not currently tracked by Tag Explorer.
 More options may be added in future, but this is all you will be able to do 
-once the project has reached v1.0. See [Possible Future 
-Features](#possible-future-features).
+once the project has reached v1.0. See [Upcoming Features](#Upcoming-Features).
 
 Before that though, we should define some terms:
 - A *Library* is a directory with a `.tgx` file in it. The `.tgx` file is while 
