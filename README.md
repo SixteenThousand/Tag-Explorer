@@ -1,38 +1,41 @@
 ### Note
+
 This project is in an unstable unusable state. When it is usable, the relevant 
-commit will be labelled "v0.0", at which point there will be full installation 
+commit will be labelled "v1.0", at which point there will be full installation 
 instructions below.
 
-For now, treat this document as more of a road map to version 0.0 than a 
+For now, treat this document as more of a road map to version 1.0 than a 
 description of how Tag Explorer works now.
+
 
 ---
 
 
 # Tag Explorer
+
 Tag Explorer is a desktop application that allows its users to add tags to 
 files & folders, a bit like how gmail works (assuming you don't just treat 
 gmail tags like folders!).
+
 
 ---
 
 
 ## Requirements
-Tag Explorer currently is only tested on Windows 10 with python 3.12. It will 
-likely work on any windows system with python 3.
 
----
+Tag Explorer is currently being developed on Fedora Linux, version 40. It 
+began development on Windows 10, however, and so it will likely work across 
+virtually all operating systems. For the moment, only Fedora will be 
+guaranteed.
 
 
-<!-- ## Installation -->
-<!-- ``` -->
-<!-- 	python -m zipapp -o "./tagx.pyz" -m "main_app:run" -->
-<!-- ``` -->
-<!---->
-<!-- --- -->
+## Getting Started
+
+TBD
 
 
 ## Usage
+
 There are three main tasks you would want to do with Tag Explorer:
 - [Search for a "Book"](#search-for-a-"book"), that is, find a tagged
     file/directory in this "library";
@@ -41,7 +44,7 @@ There are three main tasks you would want to do with Tag Explorer:
 - [Add a new "Book"](#add-a-new-"book"), that is, add tags to a 
   file/directory not currently tracked by Tag Explorer.
 More options may be added in future, but this is all you will be able to do 
-once the project has reached v0.0. See [Possible Future 
+once the project has reached v1.0. See [Possible Future 
 Features](#possible-future-features).
 
 Before that though, we should define some terms:
@@ -57,6 +60,7 @@ Before that though, we should define some terms:
   case.
 
 ### Search for a "Book"
+
 1. Select a Library you want to search in. You can do this either by choosing 
    from the list of Libraries Tag Explorer knows about already, or via a file 
    explorer dialog.
@@ -75,6 +79,7 @@ Before that though, we should define some terms:
 
 
 ### Creating a new "Library"
+
 1. Click the "New Library" button. This will open a new window:
 	![new library window](./readme-assets/NewLibShot_20240228.png)
 1. Choose whether you want Tag Explorer to automatically generate tags. If you 
@@ -107,6 +112,7 @@ data.
 
 
 ### Add a new "Book"
+
 1. Click the "New book" button at the bottom. This will open  a new window:
 	<!-- ![Screenshot of "New Book" window]() -->
 1. Click "Select file/directory". This will open a file explorer dialog from 
@@ -121,15 +127,21 @@ data.
 1. Click "Finish".
 
 
-## Features needed for v0.0
+---
+
+
+## Upcoming features
+
+### Needed for v1.0
+
 - [x] ability to select a library & search
 - [x] ability to open a Book
 - [ ] ability to create a new library
 - [ ] ability to create a new book
 - [ ] Working build script
 
-## Possible Future Features
-These are things that could be in a future v0.1:
+### Wishlist
+
 - [ ] Command Line Interface
 - [ ] Ability to edit the data stored about a particular book
 - [ ] Ability to search for all Books which match *any* tags selected, rather 
