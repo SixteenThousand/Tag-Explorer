@@ -102,7 +102,7 @@ file you should see something like the following:
 	./Maths-Books/Elements_Euclid.dvi ;; Elements ;; Euclid ;; maths,geometry
 	./Maths-Books/The-Bumper-Book-Of-Differential-Equations/ ;; The-Bumper-Book-Of-Differential-Equations ;;  ;; maths,analysis,ODEs,differential equations
 	./Maths-Books/Category-Theory/TheJoyOfCats.pdf ;; TheJoyOfCats ;;  ;; category theory,algebra,maths
-	./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategoryTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory, programming, haskell
+    ./Maths-Books/Category-Theory/CategoryTheoryForProgrammers_BartoszMileski.pdf ;; CategoryTheoryForProgrammers ;; BartoszMilewski ;; maths,category theory,programming,haskell
 ```
 You can just manually add tags to books in the database now - indeed, that is
 why Tag Explorer uses a text file rather than a proper database - or you can
