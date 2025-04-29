@@ -1,12 +1,11 @@
-### Note
+*Note*
 
-This project is in an unstable unusable state. When it is usable, the relevant 
-commit will be labelled "v1.0", at which point there will be full installation 
-instructions below.
+This project is now no longer in development, mainly because I've found that 
+[fzf](https://github.com/junegunn/fzf) solves most basic file-finding 
+problems much more easily than something like this ever could.
 
-For now, treat this document as more of a road map to version 1.0 than a 
-description of how Tag Explorer works now.
-
+Still, I learned something from this: writing Graphical User Interfaces is a 
+pain.
 
 ---
 
@@ -18,20 +17,12 @@ files & folders, a bit like how gmail works (assuming you don't just treat
 gmail tags like folders!).
 
 
----
-
-
 ## Requirements
 
 Tag Explorer is currently being developed on Fedora Linux, version 40. It 
 began development on Windows 10, however, and so it will likely work across 
 virtually all operating systems. For the moment, only Fedora will be 
 guaranteed.
-
-
-## Getting Started
-
-TBD
 
 
 ## Usage
@@ -127,7 +118,6 @@ data.
 
 
 ---
-
 
 ## Upcoming features
 
